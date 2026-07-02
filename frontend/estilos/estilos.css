@@ -1,0 +1,420 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: white;
+    background-image: url('../imagens/dessaveztacerto.jpg');
+    background-size: cover;
+    color: #333;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    max-width: 100%;
+    padding: 20px 30px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+
+main {
+    padding-top: 120px;
+    min-height: calc(100vh - 240px);
+}
+
+section.contact {
+    display: flex;
+    width: 100%;
+}
+
+a {text-decoration: none;}
+
+a p.info-name {
+    text-align: start;
+    text-decoration: none;
+    margin-left: 25px;
+    color: #B99CE4;
+}
+
+a p.info-name:hover {
+    color: black;
+}
+
+img.icone-contact {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+picture.infos-contact a{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+.email-item {
+    display: flex;          
+    align-items: center;    
+    gap: 10px;              
+}
+
+.icone-contact {
+    width: 24px;            
+    height: 24px;
+}
+
+
+#logo-img {
+    display: flex;
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo-img .logo-header {
+    display: block;
+    object-fit: contain;
+}
+
+#options-header {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+#options-header ul {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+}
+
+#options-header ul li a.logout {
+    color: white;
+    background: rgb(207, 78, 78);
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+#options-header ul li a.logout:hover {
+    background: #962f2f; 
+    transform: scale(1.05);
+}
+
+#options-header ul li a.logout:active {
+    transform: scale(0.97);
+}
+
+#options-header ul li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 15px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+#options-header ul li a:hover {
+    color: white;
+    background: #B99CE4;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+#options-header .active {
+    color: white;
+    background: #B99CE4;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+.btn-highlight {
+    background: #EDE4FF;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+.btn-highlight:hover {
+    background: #D9CCFF;
+}
+
+#hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+#hero h1 {
+    font-size: 2.3rem;
+    color: #7B5BBE;
+    font-weight: 700;
+}
+
+#hero p {
+    margin-top: 10px;
+    color: #666;
+}
+
+.btn-primary {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 24px 50px;
+    background: #6a3dd1;
+    color: white;
+    border-radius: 67px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+    transition: .2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    background-color: #b184ff;
+    box-shadow: 0 6px 20px rgba(106, 61, 209, 0.35);
+    background: #b184ff;
+}
+
+#sobre {
+    color: black;
+}
+.foto_comeco{
+    display: block;      
+    margin-left: auto;   
+    margin-right: auto;     
+    max-width: 300px;    
+
+}
+
+main h2 {
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-bottom: 25px ;
+    color: #1b0622;
+    font-size: 27px;
+    border: 10px;
+    align-self: normal;
+}
+ .educativo-lista a {
+    color: rgba(17, 6, 46, 0.5);         
+    text-decoration: none;  
+    font-weight: 600;
+}
+.educativo-titulo {
+    color: #b184ff;
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+.educativo-subtitulo {
+    font-size: 18px;
+    color: #555;
+    margin-left: 30px; 
+    margin-bottom: 20px;
+}
+
+
+.educativo-lista a:hover {
+    color:#b184ff;            
+}
+
+.educativo-lista a:active {
+    color: #b184ff;            
+}
+
+.educativo-lista a:visited {
+    color: rgba(106, 61, 209, 0.35);          
+}
+
+
+
+
+.card {
+    background: rgba(255, 255, 255, 0.7);
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1000px;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    
+}
+h4{
+    font-size:20px;
+    color: rgb(49, 49, 49);
+    margin-bottom: 10px;
+    
+}
+
+footer{
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+footer p {color: black;}
+footer p a {text-decoration: none; color: black;}
+
+@media (max-width: 768px) {
+    header {
+        justify-content: space-between;
+        padding: 14px 18px;
+    }
+
+    main {
+        padding-top: 95px;
+    }
+
+    #logo-img {
+        height: 52px !important;
+        width: 145px !important;
+        flex-shrink: 0;
+    }
+
+    #logo-img .logo-header {
+        height: 135% !important;
+        transform: scale(1.35) !important;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+        width: 44px;
+        height: 44px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        background: #B99CE4;
+        border: 0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background .2s, transform .2s;
+    }
+
+    .menu-toggle:hover {
+        background: #A98BDD;
+    }
+
+    .menu-toggle:active {
+        transform: scale(0.96);
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: white;
+        border-radius: 999px;
+        transition: transform .2s, opacity .2s;
+    }
+
+    header.menu-open .menu-toggle span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    header.menu-open .menu-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    header.menu-open .menu-toggle span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    #options-header {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 12px 18px 18px;
+        background: white;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    }
+
+    header.menu-open #options-header {
+        display: flex;
+    }
+
+    #options-header ul {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #options-header ul li a,
+    #options-header .active,
+    #options-header ul li a.logout {
+        display: block;
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+    }
+
+    #options-header ul li a:hover {
+        padding: 12px 14px;
+    }
+}
+
+#logo-img {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 60px !important;   /* Deixa a barra branca em um tamanho padrão e elegante */
+    width: 180px !important;  /* Limita o espaço para não empurrar o menu */
+    overflow: hidden !important;
+}
+
+#logo-img .logo-header {
+    display: block !important;
+    height: 140% !important;   /* Ultrapassa os 100% para estourar a borda transparente */
+    width: auto !important;
+    transform: scale(1.5) !important; /* Dá um zoom manual de 50% diretamente no desenho da logo */
+    object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+    #logo-img {
+        height: 52px !important;
+        width: 145px !important;
+    }
+
+    #logo-img .logo-header {
+        height: 135% !important;
+        transform: scale(1.35) !important;
+    }
+}
+/* Força o corpo da página a ocupar no mínimo 100% da altura da tela */
+body {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+}
+
+/* O conteúdo principal cresce para preencher o espaço vazio, empurrando o footer */
+main, .main-container {
+    flex: 1 !important;
+}
+
+/* Garante que o rodapé fique fixado na base caso a página seja curta */
+footer {
+    margin-top: auto !important;
+}
