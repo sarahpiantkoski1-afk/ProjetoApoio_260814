@@ -14,7 +14,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Jovem Egresso</title>
-    <link rel="stylesheet" href="../../estilos/estilos.css?v=7">
+    <link rel="stylesheet" href="../../estilos/estilos.css?v=9">
     <link rel="stylesheet" href="../../estilos/forms.css?v=4">
 </head>
 <body>
@@ -36,7 +36,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
                         if (isset($_SESSION['ong']) && (!isset($_SESSION['usuario']))) {
                             echo '<li><a href="../post_ongs.php">Criar Post</a></li>';
                         }
-                        echo '<li><a href="../logout.php" class="logout">LogOut</a></li>';
+                        echo '<li><a href="../logout.php" class="logout">Sair &rarr;</a></li>';
                     }
                 ?>
             </ul>

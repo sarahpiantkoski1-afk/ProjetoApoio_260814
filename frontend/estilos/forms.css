@@ -167,3 +167,27 @@ main > h2 {
         width: 90%;
     }
 }
+
+.formulario-modal-contato input,
+.formulario-modal-contato textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e8a9b0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.78);
+    color: #1b0622;
+    font-size: 15px;
+    outline: none;
+    transition: .2s ease;
+}
+
+.formulario-modal-contato input:focus,
+.formulario-modal-contato textarea:focus {
+    border-color: #6a3dd1;
+    box-shadow: 0 0 0 3px rgba(177, 132, 255, 0.22);
+}
+
+.formulario-modal-contato textarea {
+    resize: vertical;
+    min-height: 110px;
+}

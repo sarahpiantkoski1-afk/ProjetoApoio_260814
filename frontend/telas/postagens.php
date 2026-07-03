@@ -42,7 +42,7 @@ function categoriasPostagem($post) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postagens - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=7">
+    <link rel="stylesheet" href="../estilos/estilos.css?v=9">
     <link rel="stylesheet" href="../estilos/postagens.css?v=10">
 </head>
 <body>
@@ -64,7 +64,7 @@ function categoriasPostagem($post) {
                         if (isset($_SESSION['ong']) && (!isset($_SESSION['usuario']))) {
                             echo '<li><a href="post_ongs.php">Criar Post</a></li>';
                         }
-                        echo '<li><a href="logout.php" class="logout">LogOut</a></li>';
+                        echo '<li><a href="logout.php" class="logout">Sair &rarr;</a></li>';
                     }
                 ?>
             </ul>

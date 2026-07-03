@@ -39,6 +39,16 @@ section.contact {
     width: 100%;
 }
 
+.frase-impacto-contato {
+    max-width: 520px;
+    margin: 0 0 22px 0;
+    color: #4a2ea0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.45;
+    text-align: left;
+}
+
 a {text-decoration: none;}
 
 a p.info-name {
@@ -64,6 +74,163 @@ picture.infos-contact a{
     width: 100%;
     height: 50px;
 }
+
+.abrir-modal-contato {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    margin-top: 16px;
+    padding: 10px 16px;
+    border: 1px solid #f2dfa6;
+    border-radius: 999px;
+    background: #fff7d6;
+    color: #4a2ea0;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.abrir-modal-contato:hover {
+    background: #6a3dd1;
+    border-color: #6a3dd1;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.modal-contato[hidden] {
+    display: none !important;
+}
+
+.modal-contato {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.modal-contato-fundo {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.62);
+}
+
+.modal-contato-caixa {
+    position: relative;
+    width: min(92vw, 640px);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding: 44px 52px;
+    border: 1px solid #f2dfa6;
+    border-radius: 28px;
+    background: #fff0f2;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.28);
+}
+
+.modal-contato-caixa h2 {
+    margin: 0 0 18px 0;
+    color: #6a1f75;
+    font-size: 38px;
+    line-height: 1.1;
+    text-align: left;
+}
+
+.modal-contato-caixa h2 strong {
+    font-weight: 700;
+}
+
+.modal-contato-caixa p {
+    margin-bottom: 28px;
+    color: #1b0622;
+    font-size: 18px;
+    line-height: 1.55;
+}
+
+.fechar-modal-contato {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.52);
+    color: #b97982;
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.fechar-modal-contato:hover {
+    background: #fff7d6;
+    color: #4a2ea0;
+}
+
+.formulario-modal-contato {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.formulario-modal-contato label {
+    color: #4a2ea0;
+    font-weight: 700;
+}
+
+.formulario-modal-contato input,
+.formulario-modal-contato textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e8a9b0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.78);
+    color: #1b0622;
+    font-size: 15px;
+    outline: none;
+    transition: .2s ease;
+}
+
+.formulario-modal-contato input:focus,
+.formulario-modal-contato textarea:focus {
+    border-color: #6a3dd1;
+    box-shadow: 0 0 0 3px rgba(177, 132, 255, 0.22);
+}
+
+.formulario-modal-contato textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.botao-enviar-contato {
+    width: max-content;
+    min-width: 190px;
+    margin-top: 6px;
+    padding: 14px 24px;
+    border: 0;
+    border-radius: 8px;
+    background: #6a1f75;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.botao-enviar-contato:hover {
+    background: #fff7d6;
+    color: #4a2ea0;
+    transform: translateY(-2px);
+}
+
+body.modal-contato-aberto {
+    overflow: hidden;
+}
+
 .email-item {
     display: flex;          
     align-items: center;    
@@ -108,14 +275,17 @@ picture.infos-contact a{
 
 #options-header ul li a.logout {
     color: white;
-    background: rgb(207, 78, 78);
+    background: #4a1f78;
     padding: 8px 16px;
-    border-radius: 10px;
-    transition: 0.3s;
+    border-radius: 999px;
+    transition: background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+    box-shadow: 0 5px 14px rgba(74, 31, 120, 0.22);
 }
 
 #options-header ul li a.logout:hover {
-    background: #962f2f; 
+    color: #4a2ea0;
+    background: #fff7d6;
+    box-shadow: 0 6px 18px rgba(242, 223, 166, 0.34);
     transform: scale(1.05);
 }
 
@@ -417,4 +587,27 @@ main, .main-container {
 /* Garante que o rodapé fique fixado na base caso a página seja curta */
 footer {
     margin-top: auto !important;
+}
+
+@media (max-width: 600px) {
+    .modal-contato {
+        padding: 14px;
+    }
+
+    .modal-contato-caixa {
+        padding: 34px 22px;
+        border-radius: 20px;
+    }
+
+    .modal-contato-caixa h2 {
+        font-size: 30px;
+    }
+
+    .modal-contato-caixa p {
+        font-size: 16px;
+    }
+
+    .botao-enviar-contato {
+        width: 100%;
+    }
 }

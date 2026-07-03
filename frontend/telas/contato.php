@@ -1,6 +1,48 @@
 <?php
 session_start();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
+    header('Content-Type: application/json; charset=UTF-8');
+
+    $nome = trim($_POST['nome'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $ong = trim($_POST['ong'] ?? '');
+    $assunto = trim($_POST['assunto'] ?? '');
+    $mensagem = trim($_POST['mensagem'] ?? '');
+
+    if ($nome && filter_var($email, FILTER_VALIDATE_EMAIL) && $assunto && $mensagem) {
+        $destinatario = 'sarahpiantkoski1@gmail.com';
+        $assuntoEmail = 'Contato Apoio+ - ' . $assunto;
+        $conteudoEmail = "Nome: {$nome}\n";
+        $conteudoEmail .= "E-mail para resposta: {$email}\n";
+        $conteudoEmail .= "ONG: " . ($ong ?: 'Nao informado') . "\n";
+        $conteudoEmail .= "Assunto: {$assunto}\n\n";
+        $conteudoEmail .= "Mensagem:\n{$mensagem}\n";
+        $headers = "From: Apoio+ <no-reply@apoio.local>\r\n";
+        $headers .= "Reply-To: {$email}\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+        // Envio simulado para testes locais no XAMPP, onde mail() costuma falhar sem SMTP.
+        // Para ativar o envio real depois, troque a linha abaixo por:
+        // $envioOk = @mail($destinatario, $assuntoEmail, $conteudoEmail, $headers);
+        $envioOk = true;
+
+        echo json_encode([
+            'status' => $envioOk ? 'ok' : 'erro',
+            'message' => $envioOk
+                ? 'Obrigado! Sua mensagem foi enviada com sucesso e logo entraremos em contato. 💜'
+                : 'Nao foi possivel enviar a mensagem agora. Tente novamente mais tarde.'
+        ]);
+        exit();
+    }
+
+    echo json_encode([
+        'status' => 'erro',
+        'message' => 'Preencha os campos obrigatorios corretamente.'
+    ]);
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -9,8 +51,8 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=7">
-    <link rel="stylesheet" href="../estilos/forms.css?v=4">
+    <link rel="stylesheet" href="../estilos/estilos.css?v=9">
+    <link rel="stylesheet" href="../estilos/forms.css?v=5">
 </head>
 <body>
     <header>
@@ -31,7 +73,7 @@ session_start();
                         if (isset($_SESSION['ong']) && (!isset($_SESSION['usuario']))) {
                             echo '<li><a href="post_ongs.php">Criar Post</a></li>';
                         }
-                        echo '<li><a href="logout.php" class="logout">LogOut</a></li>';
+                        echo '<li><a href="logout.php" class="logout">Sair &rarr;</a></li>';
                     }
                 ?>
             </ul>
@@ -46,6 +88,7 @@ session_start();
             <article class="form-down">
                 <section class="contact">
                     <picture class="infos-contact">
+                        <p class="frase-impacto-contato">Acolhimento &eacute; a nossa forma de mudar o mundo.</p>
                         <h4>Email</h4>
                         <div class="email-item">
                             <img src="../imagens/email.jpg" alt="Email" class="icone-contact">
@@ -65,10 +108,41 @@ session_start();
                             <img src="../imagens/logo-instagram.avif" alt="Icone" class="icone-contact">
                             <p class="info-name">Sarah Lorena</p>
                         </a>
+                        <button class="abrir-modal-contato" type="button">nos envie uma mensagem &#128070;</button>
                     </picture>
                 </section>
             </article>
         </section>
+
+        <div class="modal-contato" id="modal-contato" hidden>
+            <div class="modal-contato-fundo" data-fechar-modal></div>
+            <section class="modal-contato-caixa" role="dialog" aria-modal="true" aria-labelledby="modal-contato-titulo">
+                <button class="fechar-modal-contato" type="button" aria-label="Fechar" data-fechar-modal>&times;</button>
+                <h2 id="modal-contato-titulo">Fale conosco</h2>
+                <p>Caso queira enviar alguma d&uacute;vida ou sugest&atilde;o, preencha os campos abaixo:</p>
+
+                <form class="formulario-modal-contato" method="post" action="contato.php">
+                    <input type="hidden" name="enviar_contato" value="1">
+
+                    <label for="nome-contato">Nome</label>
+                    <input type="text" name="nome" id="nome-contato" placeholder="Nome" required>
+
+                    <label for="email-contato">E-mail para receber a resposta</label>
+                    <input type="email" name="email" id="email-contato" placeholder="E-mail para receber a resposta" required>
+
+                    <label for="ong-contato">ONGs (opcional)</label>
+                    <input type="text" name="ong" id="ong-contato" placeholder="ONGs (opcional)">
+
+                    <label for="assunto-contato">Assunto</label>
+                    <input type="text" name="assunto" id="assunto-contato" placeholder="Assunto" required>
+
+                    <label for="mensagem-contato">Mensagem</label>
+                    <textarea name="mensagem" id="mensagem-contato" rows="5" placeholder="Mensagem" required></textarea>
+
+                    <button class="botao-enviar-contato" type="submit">ENVIAR &rarr;</button>
+                </form>
+            </section>
+        </div>
 
         <section id="sobre">
             <h2>Sobre o Apoio+</h2>
@@ -83,5 +157,63 @@ session_start();
         <p>Apoio+ - O guia colaborativo para jovens egressos de abrigos institucionais</p>
     </footer>
     <script src="header-menu.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById("modal-contato");
+            const abrirModal = document.querySelector(".abrir-modal-contato");
+            const fecharModal = document.querySelectorAll("[data-fechar-modal]");
+            const formularioContato = document.querySelector(".formulario-modal-contato");
+
+            if (!modal || !abrirModal) {
+                return;
+            }
+
+            const abrir = () => {
+                modal.hidden = false;
+                document.body.classList.add("modal-contato-aberto");
+            };
+
+            const fechar = () => {
+                modal.hidden = true;
+                document.body.classList.remove("modal-contato-aberto");
+            };
+
+            abrirModal.addEventListener("click", abrir);
+            fecharModal.forEach((elemento) => elemento.addEventListener("click", fechar));
+
+            if (formularioContato) {
+                formularioContato.addEventListener("submit", (event) => {
+                    event.preventDefault();
+
+                    const dados = new FormData(formularioContato);
+
+                    fetch("contato.php", {
+                        method: "POST",
+                        body: dados
+                    })
+                    .then((resposta) => resposta.json())
+                    .then((data) => {
+                        if (data.status === "ok") {
+                            formularioContato.reset();
+                            fechar();
+                            alert(data.message);
+                            return;
+                        }
+
+                        alert(data.message || "Nao foi possivel enviar a mensagem agora.");
+                    })
+                    .catch(() => {
+                        alert("Nao foi possivel enviar a mensagem agora. Tente novamente mais tarde.");
+                    });
+                });
+            }
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && !modal.hidden) {
+                    fechar();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

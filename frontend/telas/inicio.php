@@ -9,7 +9,7 @@ require_once('../../backend/funcionalidades/config.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=7">
+    <link rel="stylesheet" href="../estilos/estilos.css?v=9">
     <link rel="stylesheet" href="../estilos/postagens.css?v=10">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -33,7 +33,7 @@ require_once('../../backend/funcionalidades/config.php');
                         if (isset($_SESSION['ong']) && (!isset($_SESSION['usuario']))) {
                             echo '<li><a href="post_ongs.php">Criar Post</a></li>';
                         }
-                        echo '<li><a href="logout.php" class="logout">LogOut</a></li>';
+                        echo '<li><a href="logout.php" class="logout">Sair &rarr;</a></li>';
                     }
                 ?>
             </ul>
