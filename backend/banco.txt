@@ -20,41 +20,37 @@ CREATE TABLE postagens (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ong_id INT NOT NULL,
     titulo VARCHAR(200) NOT NULL,
-    descricao VARCHAR(60) NOT NULL ,
+    descricao VARCHAR(60) NOT NULL,
     link VARCHAR(255),
+    categoria VARCHAR(120) NOT NULL DEFAULT '',
     data_postagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ong_id) REFERENCES ongs(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
 INSERT INTO egressos (nome, email, senha) VALUES
 ('Lucas Almeida', 'lucas.egresso@gmail.com', 'senha123'),
 ('Mariana Santos', 'mariana.santos.egresso@gmail.com', 'senha123'),
-('João Pereira', 'joao.pereira.egresso@gmail.com', 'senha123'),
+('Joao Pereira', 'joao.pereira.egresso@gmail.com', 'senha123'),
 ('Carla Mota', 'carla.mota.egresso@gmail.com', 'senha123'),
 ('Rafael Souza', 'rafael.souza.egresso@gmail.com', 'senha123');
-
 
 INSERT INTO ongs (nome, cnpj, email, senha) VALUES
 ('Casa de Apoio Jovem Futuro', '12.345.678/0001-10', 'contato@jovemfuturo.org', 'senha123'),
 ('Instituto Caminhos Livres', '23.456.789/0001-20', 'contato@caminhoslivres.org', 'senha123'),
 ('Rede Acolher', '34.567.890/0001-30', 'contato@redeacolher.org', 'senha123'),
 ('Projeto Renascer', '45.678.901/0001-40', 'contato@renascer.org', 'senha123'),
-('FAS - Fundação de Ação Social', '56.789.012/0001-50', 'contato@fas.pr.gov.br', 'senha123');
+('FAS - Fundacao de Acao Social', '56.789.012/0001-50', 'contato@fas.pr.gov.br', 'senha123');
 
-
-INSERT INTO postagens (ong_id, titulo, descricao, link) VALUES
-(1, 'Vaga de Auxiliar Administrativo', 'Vaga para jovens egressos, meio período', 'https://empregos.jfuturo.org/adm'),
-(1, 'Moradia Solidária - Quarto', 'Quarto compartilhado com apoio social', 'https://jovemfuturo.org/moradia'),
-
-(2, 'Curso de Informática Básica', 'Curso gratuito com certificado, 8 semanas', 'https://caminhoslivres.org/cursos/info'),
-(2, 'Estágio em Comércio Local', 'Estágio para jovens egressos, vaga disponível', 'https://caminhoslivres.org/estagios'),
-
-(3, 'Moradia Solidária - 2 Vagas', 'Casa de acolhimento com 2 vagas disponíveis', 'https://redeacolher.org/moradia'),
-(3, 'Apoio Psicossocial', 'Atendimento e orientação para inserção social', 'https://redeacolher.org/psico'),
-
-(4, 'Oficina de Empreendedorismo', 'Oficina presencial de 4 encontros', 'https://renascer.org/oficinas'),
-(4, 'Programa de Capacitação', 'Capacitação para inserção no mercado de trabalho', 'https://renascer.org/capacitacao'),
-
-(5, 'Serviços FAS - Acolhimento', 'Pontos de acolhimento e atendimento social', 'https://fas.pr.gov.br/acolhimento'),
-(5, 'Lista de Vagas Atualizada', 'Notificamos novas vagas de emprego e moradia', 'https://fas.pr.gov.br/vagas');
+INSERT INTO postagens (ong_id, titulo, descricao, link, categoria) VALUES
+(1, 'Vaga de Auxiliar Administrativo', 'Vaga para jovens egressos, meio periodo', 'https://empregos.jfuturo.org/adm', 'emprego'),
+(1, 'Moradia Solidaria - Quarto', 'Quarto compartilhado com apoio social', 'https://jovemfuturo.org/moradia', 'moradia,acolhimento'),
+(2, 'Curso de Informatica Basica', 'Curso gratuito com certificado, 8 semanas', 'https://caminhoslivres.org/cursos/info', 'curso'),
+(2, 'Estagio em Comercio Local', 'Estagio para jovens egressos, vaga disponivel', 'https://caminhoslivres.org/estagios', 'emprego'),
+(3, 'Moradia Solidaria - 2 Vagas', 'Casa de acolhimento com 2 vagas disponiveis', 'https://redeacolher.org/moradia', 'moradia,acolhimento'),
+(3, 'Apoio Psicossocial', 'Atendimento e orientacao para insercao social', 'https://redeacolher.org/psico', 'apoio-psicologico'),
+(4, 'Oficina de Empreendedorismo', 'Oficina presencial de 4 encontros', 'https://renascer.org/oficinas', 'curso,emprego'),
+(4, 'Programa de Capacitacao', 'Capacitacao para insercao no mercado de trabalho', 'https://renascer.org/capacitacao', 'curso,emprego'),
+(5, 'Servicos FAS - Acolhimento', 'Pontos de acolhimento e atendimento social', 'https://fas.pr.gov.br/acolhimento', 'acolhimento'),
+(5, 'Lista de Vagas Atualizada', 'Notificamos novas vagas de emprego e moradia', 'https://fas.pr.gov.br/vagas', 'emprego,moradia');

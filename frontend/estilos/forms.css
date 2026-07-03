@@ -78,6 +78,62 @@ textarea:focus {
     box-shadow: 0 0 0 2px #ecdfff;
 }
 
+.categoria-fieldset {
+    border: 1px solid #eadbff;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 4px;
+}
+
+.categoria-fieldset legend {
+    padding: 0 8px;
+    color: #4a2ea0;
+    font-weight: 700;
+}
+
+.categoria-ajuda {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.categoria-opcoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.categoria-chip {
+    cursor: pointer;
+}
+
+.categoria-chip input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.categoria-chip span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 8px 14px;
+    border: 1px solid #f2dfa6;
+    border-radius: 999px;
+    background: #fff7d6;
+    color: #4a2ea0;
+    font-size: 14px;
+    font-weight: 700;
+    transition: .2s ease;
+}
+
+.categoria-chip input:checked + span {
+    background: #b184ff;
+    border-color: #b184ff;
+    color: #fff;
+    box-shadow: 0 5px 14px rgba(177, 132, 255, 0.28);
+}
+
 .botao-executar {
     margin-top: 10px;
     padding: 12px;

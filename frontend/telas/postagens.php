@@ -1,6 +1,37 @@
 <?php
 require_once('../../backend/funcionalidades/config.php');
 
+function categoriasPostagem($post) {
+    if (!empty($post['categoria'])) {
+        return $post['categoria'];
+    }
+
+    $texto = strtolower(($post['titulo'] ?? '') . ' ' . ($post['descricao'] ?? ''));
+    $categorias = [];
+
+    if (strpos($texto, 'curso') !== false || strpos($texto, 'capacit') !== false || strpos($texto, 'oficina') !== false) {
+        $categorias[] = 'curso';
+    }
+
+    if (strpos($texto, 'moradia') !== false || strpos($texto, 'quarto') !== false) {
+        $categorias[] = 'moradia';
+    }
+
+    if (strpos($texto, 'psic') !== false || strpos($texto, 'emocional') !== false) {
+        $categorias[] = 'apoio-psicologico';
+    }
+
+    if (strpos($texto, 'emprego') !== false || strpos($texto, 'vaga') !== false || strpos($texto, 'aprendiz') !== false || strpos($texto, 'estagio') !== false) {
+        $categorias[] = 'emprego';
+    }
+
+    if (strpos($texto, 'acolh') !== false || strpos($texto, 'assist') !== false) {
+        $categorias[] = 'acolhimento';
+    }
+
+    return implode(',', array_unique($categorias));
+}
+
 ?>
 
 
@@ -12,7 +43,7 @@ require_once('../../backend/funcionalidades/config.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postagens - Apoio+</title>
     <link rel="stylesheet" href="../estilos/estilos.css?v=7">
-    <link rel="stylesheet" href="../estilos/postagens.css?v=8">
+    <link rel="stylesheet" href="../estilos/postagens.css?v=10">
 </head>
 <body>
     <header>
@@ -40,6 +71,19 @@ require_once('../../backend/funcionalidades/config.php');
         </nav>
     </header>
     <main>
+        <div class="filtro-postagens">
+            <button class="botao-filtro" type="button" aria-label="Abrir filtros de categorias" aria-expanded="false">
+                &#128269;
+            </button>
+            <div class="painel-filtro" hidden>
+                <button type="button" class="filtro-chip" data-categoria="curso">Curso</button>
+                <button type="button" class="filtro-chip" data-categoria="moradia">Moradia</button>
+                <button type="button" class="filtro-chip" data-categoria="apoio-psicologico">Apoio psicol&oacute;gico</button>
+                <button type="button" class="filtro-chip" data-categoria="emprego">Emprego</button>
+                <button type="button" class="filtro-chip" data-categoria="acolhimento">Acolhimento</button>
+            </div>
+        </div>
+
         <section id="posts">
             <h2>Postagens das ongs</h2>
 
@@ -68,8 +112,9 @@ require_once('../../backend/funcionalidades/config.php');
                 while ($post = $resultado->fetch_assoc()) {
                     $timestampPostagem = strtotime($post['data_postagem']);
                     $dataPostagem = date("d", $timestampPostagem) . " " . $meses[(int) date("n", $timestampPostagem)] . " " . date("Y", $timestampPostagem);
+                    $categoriasPost = htmlspecialchars(categoriasPostagem($post));
 
-                    echo "<div class='post'>";
+                    echo "<div class='post' data-categorias='" . $categoriasPost . "'>";
                     echo "<h2>" . htmlspecialchars($post['titulo']) . "</h2>";
                     echo "<p class='descricao'>" . nl2br(htmlspecialchars($post['descricao'])) . "</p>";
                     echo "<p><a href='" . htmlspecialchars($post['link']) . "' target='_blank' class='ver-mais'>Acessar link</a></p>";
@@ -82,6 +127,7 @@ require_once('../../backend/funcionalidades/config.php');
                 ?>
 
             </div>
+            <p class="sem-resultados" hidden>Nenhuma postagem encontrada para esta categoria.</p>
         </section>
 
     </main>
@@ -90,5 +136,6 @@ require_once('../../backend/funcionalidades/config.php');
         </p>
     </footer>
     <script src="header-menu.js"></script>
+    <script src="post-filter.js"></script>
 </body>
 </html>

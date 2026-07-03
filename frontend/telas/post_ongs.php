@@ -16,7 +16,7 @@ if (!isset($_SESSION['ong'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criação de Post - Apoio+</title>
     <link rel="stylesheet" href="../estilos/estilos.css?v=7">
-    <link rel="stylesheet" href="../estilos/forms.css?v=4">
+    <link rel="stylesheet" href="../estilos/forms.css?v=5">
     <link rel="shortcut icon" href="../imagens/favicon.png" type="image/x-icon">
 </head>
 <body>
@@ -87,6 +87,33 @@ if (!isset($_SESSION['ong'])) {
                         required
                     ></textarea>
 
+                    <fieldset class="categoria-fieldset">
+                        <legend>Categorias</legend>
+                        <p class="categoria-ajuda">Selecione ate duas categorias.</p>
+                        <div class="categoria-opcoes">
+                            <label class="categoria-chip">
+                                <input type="checkbox" name="categorias[]" value="curso">
+                                <span>Curso</span>
+                            </label>
+                            <label class="categoria-chip">
+                                <input type="checkbox" name="categorias[]" value="moradia">
+                                <span>Moradia</span>
+                            </label>
+                            <label class="categoria-chip">
+                                <input type="checkbox" name="categorias[]" value="apoio-psicologico">
+                                <span>Apoio psicol&oacute;gico</span>
+                            </label>
+                            <label class="categoria-chip">
+                                <input type="checkbox" name="categorias[]" value="emprego">
+                                <span>Emprego</span>
+                            </label>
+                            <label class="categoria-chip">
+                                <input type="checkbox" name="categorias[]" value="acolhimento">
+                                <span>Acolhimento</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
                     <input type="submit" value="Postar" class="botao-executar">
                 </form>
             </article>
@@ -94,6 +121,19 @@ if (!isset($_SESSION['ong'])) {
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
+    const limiteCategorias = 2;
+    const categorias = document.querySelectorAll('input[name="categorias[]"]');
+
+    categorias.forEach((categoria) => {
+        categoria.addEventListener("change", () => {
+            const selecionadas = document.querySelectorAll('input[name="categorias[]"]:checked');
+
+            if (selecionadas.length > limiteCategorias) {
+                categoria.checked = false;
+                alert("Selecione no maximo duas categorias para a vaga.");
+            }
+        });
+    });
 
     form.addEventListener("submit", function (e) {
         e.preventDefault();
