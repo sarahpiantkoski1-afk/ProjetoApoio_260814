@@ -26,7 +26,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
         <nav id="options-header">
             <ul>
                 <li><a href="inicio.php">Inicio</a></li>
-                <li><a href="conteudo_educativo.php">Conteudo Educativo</a></li>
+                <li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
                 <li><a href="postagens.php">Postagens</a></li>
                 <li><a href="contato.php">Contato</a></li>
                 <?php
@@ -55,7 +55,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
         </section>
     </main>
     <footer>
-        <p>Apoio+ - O guia colaborativo para jovens egressos de abrigos institucionais
+        <p>Apoio+  O guia colaborativo para jovens egressos de abrigos institucionais
         </p>
     </footer>
     <script src="header-menu.js"></script>

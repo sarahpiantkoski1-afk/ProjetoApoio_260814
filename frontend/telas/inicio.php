@@ -22,7 +22,7 @@ require_once('../../backend/funcionalidades/config.php');
         <nav id="options-header">
             <ul>
                 <li><a href="inicio.php" class="active">Inicio</a></li>
-                <li><a href="conteudo_educativo.php">Conteudo Educativo</a></li>
+                <li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
                 <li><a href="postagens.php">Postagens</a></li>
                 <li><a href="contato.php">Contato</a></li>
                 <?php
@@ -44,10 +44,10 @@ require_once('../../backend/funcionalidades/config.php');
         <?php
         if (!isset($_SESSION['usuario']) && (!isset($_SESSION['ong']))) {
             echo '<section id="hero">';
-            echo '<h1>Apoio+ &mdash; Conectando jovens egressos a oportunidades reais</h1>';
-            echo '<p>Cadastre-se para receber notifica&ccedil;&otilde;es das atividades das ongs associadas!</p>';
+            echo '<h1>Apoio+   Conectando jovens egressos a oportunidades reais</h1>';
+            echo '<p>Cadastre-se para receber notifica&ccedil;&otilde;es das atividades das ONGs associadas!</p>';
             echo '<img src="../imagens/apoiomais.png" alt="logo" class="foto_comeco">';
-            echo '<a href="login/cadastro_egressos.php" class="btn-primary">Cadastrar-se j&aacute;</a>';
+            echo '<a href="login/cadastro_egressos.php" class="btn-primary">Cadastre-se j&aacute;</a>';
             echo '</section>';
         }
         ?>
@@ -104,7 +104,7 @@ require_once('../../backend/funcionalidades/config.php');
     </main>
 
     <footer>
-        <p>Apoio+ - O guia colaborativo para jovens egressos de abrigos institucionais</p>
+        <p>Apoio+  O guia colaborativo para jovens egressos de abrigos institucionais</p>
     </footer>
     <script src="header-menu.js"></script>
 </body>

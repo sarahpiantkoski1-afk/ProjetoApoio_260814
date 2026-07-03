@@ -53,7 +53,7 @@ function categoriasPostagem($post) {
         <nav id="options-header">
             <ul>
                 <li><a href="inicio.php">Inicio</a></li>
-                <li><a href="conteudo_educativo.php">Conteudo Educativo</a></li>
+                <li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
                 <li><a href="postagens.php" class="active">Postagens</a></li>
                 <li><a href="contato.php">Contato</a></li>
                 <?php
@@ -85,7 +85,7 @@ function categoriasPostagem($post) {
         </div>
 
         <section id="posts">
-            <h2>Postagens das ongs</h2>
+            <h2>Postagens das ONGs</h2>
 
             <div class="card-post"> <!-- use a classe correta do CSS flex -->
 
@@ -132,7 +132,7 @@ function categoriasPostagem($post) {
 
     </main>
     <footer>
-        <p>Apoio+ - O guia colaborativo para jovens egressos de abrigos institucionais
+        <p>Apoio+  O guia colaborativo para jovens egressos de abrigos institucionais
         </p>
     </footer>
     <script src="header-menu.js"></script>

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const botaoFiltro = document.querySelector(".botao-filtro");
     const painelFiltro = document.querySelector(".painel-filtro");
     const chips = document.querySelectorAll(".filtro-chip");
-    const cards = document.querySelectorAll(".post[data-categorias]");
+    const cards = document.querySelectorAll(".post[data-categorias], .educativo-card[data-categorias]");
     const semResultados = document.querySelector(".sem-resultados");
 
     if (!filtro || !botaoFiltro || !painelFiltro || cards.length === 0) {

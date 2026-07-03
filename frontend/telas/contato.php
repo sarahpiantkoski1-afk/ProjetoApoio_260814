@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
         <nav id="options-header">
             <ul>
                 <li><a href="inicio.php">Inicio</a></li>
-                <li><a href="conteudo_educativo.php">Conteudo Educativo</a></li>
+                <li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
                 <li><a href="postagens.php">Postagens</a></li>
                 <li><a href="contato.php" class="active">Contato</a></li>
                 <?php
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
                             <img src="../imagens/logo-instagram.avif" alt="Icone" class="icone-contact">
                             <p class="info-name">Sarah Lorena</p>
                         </a>
-                        <button class="abrir-modal-contato" type="button">nos envie uma mensagem &#128070;</button>
+                        <button class="abrir-modal-contato" type="button">Nos envie uma mensagem &#128070;</button>
                     </picture>
                 </section>
             </article>
@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
     </main>
 
     <footer>
-        <p>Apoio+ - O guia colaborativo para jovens egressos de abrigos institucionais</p>
+        <p>Apoio+  O guia colaborativo para jovens egressos de abrigos institucionais</p>
     </footer>
     <script src="header-menu.js"></script>
     <script>
