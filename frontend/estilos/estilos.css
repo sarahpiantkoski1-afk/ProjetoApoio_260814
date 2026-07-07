@@ -577,6 +577,14 @@ body.modal-contato-aberto {
 #sobre {
     color: black;
 }
+
+#sobre h2 {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto 25px;
+    color: #4a2ea0;
+    text-align: left;
+}
 .foto_comeco{
     display: block;      
     margin-left: auto;   
@@ -760,7 +768,7 @@ main h2 {
 
 
 .card {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.92);
     margin: 20px auto;
     width: 90%;
     max-width: 1000px;
