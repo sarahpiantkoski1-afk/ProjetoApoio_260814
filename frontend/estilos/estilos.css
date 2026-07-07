@@ -10,7 +10,7 @@
 body {
     margin: 0;
     background: white;
-    background-image: url('../imagens/dessaveztacerto.jpg');
+    background-image: url('../imagens/fundopessoas.png');
     background-size: cover;
     color: #333;
 }
@@ -361,6 +361,219 @@ body.modal-contato-aberto {
     background: #b184ff;
 }
 
+.login-selecao-main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 170px 24px 60px;
+}
+
+.login-selecao-main h2 {
+    margin: 0 0 34px;
+    color: #4a2ea0;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.login-opcoes {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.login-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: min(100%, 390px);
+    min-height: 430px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.login-card-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 30px;
+    border-radius: 50%;
+    background: #f0e6ff;
+    font-size: 70px;
+}
+
+.login-card-icone svg {
+    width: 84px;
+    height: 84px;
+    fill: none;
+    stroke: #4a2ea0;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.login-card h3 {
+    margin: 0 0 16px;
+    color: #4a2ea0;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.login-card p {
+    max-width: 310px;
+    margin: 0;
+    color: #333;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.login-card-botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    margin-top: auto;
+    padding: 14px 34px;
+    border-radius: 999px;
+    background: #b184ff;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(177, 132, 255, 0.35);
+    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.login-card-botao:hover {
+    transform: translateY(-2px);
+    background: #9f6ee6;
+    box-shadow: 0 12px 24px rgba(106, 61, 209, 0.28);
+}
+
+.login-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-links a {
+    color: #4a2ea0;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.login-links a:hover {
+    color: #7B5BBE;
+    text-decoration: underline;
+}
+
+.recuperar-senha-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px);
+    padding: 150px 24px 70px;
+}
+
+.recuperar-senha-card {
+    width: min(100%, 430px);
+    text-align: left;
+}
+
+.recuperar-senha-card h2 {
+    margin: 0 0 8px;
+    color: #1b0622;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.recuperar-senha-card p {
+    margin: 0 0 48px;
+    color: #4a2ea0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.recuperar-senha-form {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+}
+
+.recuperar-senha-form input[type="email"] {
+    width: 100%;
+    padding: 17px 20px;
+    border: 1px solid #e7dcff;
+    border-radius: 0;
+    background: #f0eaff;
+    color: #1b0622;
+    font-size: 16px;
+    outline: none;
+    transition: .2s ease;
+}
+
+.recuperar-senha-form input[type="email"]::placeholder {
+    color: #6b5d7c;
+}
+
+.recuperar-senha-form input[type="email"]:focus {
+    border-color: #b184ff;
+    box-shadow: 0 0 0 3px rgba(177, 132, 255, 0.22);
+}
+
+.recuperar-senha-form button {
+    width: 100%;
+    padding: 15px 22px;
+    border: 0;
+    border-radius: 999px;
+    background: #b184ff;
+    color: #311d4e;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(177, 132, 255, 0.24);
+    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.recuperar-senha-form button:hover {
+    transform: translateY(-2px);
+    background: #9f6ee6;
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(106, 61, 209, 0.26);
+}
+
+.recuperar-senha-voltar {
+    display: block;
+    margin-top: 28px;
+    color: #555;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.recuperar-senha-voltar:hover {
+    color: #4a2ea0;
+    text-decoration: underline;
+}
+
 #sobre {
     color: black;
 }
@@ -581,6 +794,44 @@ footer p a {text-decoration: none; color: black;}
 
     main {
         padding-top: 95px;
+    }
+
+    .login-selecao-main {
+        padding: 125px 18px 40px;
+    }
+
+    .login-selecao-main h2 {
+        margin-bottom: 24px;
+        font-size: 30px;
+    }
+
+    .login-opcoes {
+        gap: 20px;
+    }
+
+    .login-card {
+        min-height: 390px;
+        padding: 32px 24px;
+    }
+
+    .login-card-icone {
+        width: 125px;
+        height: 125px;
+        margin-bottom: 24px;
+        font-size: 55px;
+    }
+
+    .login-card-icone svg {
+        width: 70px;
+        height: 70px;
+    }
+
+    .login-card h3 {
+        font-size: 25px;
+    }
+
+    .login-card p {
+        font-size: 16px;
     }
 
     #logo-img {

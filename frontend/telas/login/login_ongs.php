@@ -14,7 +14,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Ongs</title>
-    <link rel="stylesheet" href="../../estilos/estilos.css?v=9">
+    <link rel="stylesheet" href="../../estilos/estilos.css?v=10">
     <link rel="stylesheet" href="../../estilos/forms.css?v=4">
 </head>
 <body>
@@ -88,6 +88,11 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
                     >
 
                     <input type="submit" value="Entrar" class="botao-executar">
+
+                    <div class="login-links">
+                        <a href="../recuperar_senha.php">Esqueceu sua senha?</a>
+                        <a href="cadastro_ongs.php">Ainda n&atilde;o tem conta? Cadastre-se</a>
+                    </div>
                 </form>
             </article>
         </section>
