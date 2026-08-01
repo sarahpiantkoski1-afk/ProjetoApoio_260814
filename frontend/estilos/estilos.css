@@ -55,7 +55,7 @@ a p.info-name {
     text-align: start;
     text-decoration: none;
     margin-left: 25px;
-    color: #B99CE4;
+    color: #4a2ea0;
 }
 
 a p.info-name:hover {
@@ -603,6 +603,11 @@ main h2 {
     align-self: normal;
 }
 
+#oportunidades > h2,
+#posts > h2 {
+    color: #351378;
+}
+
 .educativo-main {
     padding-left: 28px;
     padding-right: 28px;
@@ -615,7 +620,7 @@ main h2 {
 
 .educativo-container h1 {
     margin: 28px 0 10px;
-    color: #1b0622;
+    color: #351378;
     font-size: 28px;
     font-weight: 700;
     line-height: 1.2;
@@ -1051,7 +1056,15 @@ footer {
     width: 100%;
     max-height: 520px;
     overflow: visible;
+    outline: none;
     filter: drop-shadow(0 13px 18px rgba(74, 46, 160, .16));
+}
+
+.mapa-svg:focus,
+.mapa-svg path:focus,
+.mapa-svg g:focus,
+.cidade:focus {
+    outline: none;
 }
 
 .cidade {
@@ -1066,7 +1079,7 @@ footer {
     transition: fill .2s ease, filter .2s ease, stroke .2s ease;
 }
 .cidade:hover { filter: brightness(1.06); }
-.cidade:focus-visible { outline: none; stroke: #4a2ea0; stroke-width: 4; }
+.cidade:focus-visible { outline: none; }
 .cidade-curitiba { fill: #cbb1ec; }
 .cidade-colombo { fill: #dfd0f1; }
 .cidade-pinhais { fill: #d4bdeb; }
@@ -1075,7 +1088,7 @@ footer {
 .cidade.selecionada {
     fill: #f6dfa0;
     filter: drop-shadow(0 7px 8px rgba(74, 46, 160, .22));
-    stroke: #8b6a22;
+    stroke: #fff;
     stroke-width: 4;
 }
 .cidade.selecionada:hover { filter: brightness(1.03) drop-shadow(0 7px 8px rgba(74, 46, 160, .22)); }

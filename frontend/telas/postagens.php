@@ -42,7 +42,7 @@ function categoriasPostagem($post) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postagens - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=9">
+    <link rel="stylesheet" href="../estilos/estilos.css?v=14">
     <link rel="stylesheet" href="../estilos/postagens.css?v=10">
 </head>
 <body>

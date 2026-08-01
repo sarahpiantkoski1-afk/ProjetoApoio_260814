@@ -63,7 +63,7 @@ function criarPathMunicipio($aneis, $minX, $maxY, $escala, $offsetX, $offsetY) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGs - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=11">
+    <link rel="stylesheet" href="../estilos/estilos.css?v=13">
 </head>
 <body>
     <header>
@@ -124,7 +124,6 @@ function criarPathMunicipio($aneis, $minX, $maxY, $escala, $offsetX, $offsetY) {
                         <text class="cidade-label cidade-label-<?= htmlspecialchars($municipio['chave']) ?>" x="<?= $labelX ?>" y="<?= $labelY ?>"><?= htmlspecialchars($municipio['nome']) ?></text>
                     <?php endforeach; ?>
                 </svg>
-                <p class="fonte-mapa">Limites municipais: IAT Paraná, 2022.</p>
             </div>
 
             <aside class="painel-municipio" aria-live="polite">

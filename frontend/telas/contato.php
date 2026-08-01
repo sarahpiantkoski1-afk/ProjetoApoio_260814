@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
     $mensagem = trim($_POST['mensagem'] ?? '');
 
     if ($nome && filter_var($email, FILTER_VALIDATE_EMAIL) && $assunto && $mensagem) {
-        $destinatario = 'sarahpiantkoski1@gmail.com';
+        $destinatario = 'apoiomais.oficial@gmail.com';
         $assuntoEmail = 'Contato Apoio+ - ' . $assunto;
         $conteudoEmail = "Nome: {$nome}\n";
         $conteudoEmail .= "E-mail para resposta: {$email}\n";
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=9">
+    <link rel="stylesheet" href="../estilos/estilos.css?v=15">
     <link rel="stylesheet" href="../estilos/forms.css?v=5">
 </head>
 <body>
@@ -93,21 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
                         <h4>Email</h4>
                         <div class="email-item">
                             <img src="../imagens/email.jpg" alt="Email" class="icone-contact">
-                            <p class="info-name">l4is00aguirre@gmail.com</p>
+                            <p class="info-name">apoiomais.oficial@gmail.com</p>
                         </div>
 
-                        <div class="email-item">
-                            <img src="../imagens/email.jpg" alt="Email" class="icone-contact">
-                            <p class="info-name">sarahpiantkoski1@gmail.com</p>
-                        </div>
-
-                        <a href="https://www.instagram.com/melaisss_/" target="_blank" rel="noopener noreferrer">
-                            <img src="../imagens/logo-instagram.avif" alt="Icone" class="icone-contact">
-                            <p class="info-name">La&iacute;s Aguirre</p>
-                        </a>
-                        <a href="https://www.instagram.com/sah_lorenaa/" target="_blank" rel="noopener noreferrer">
-                            <img src="../imagens/logo-instagram.avif" alt="Icone" class="icone-contact">
-                            <p class="info-name">Sarah Lorena</p>
+                        <a href="https://www.instagram.com/apoiomais.oficial/" target="_blank" rel="noopener noreferrer">
+                            <img src="../imagens/logo-instagram.avif" alt="Instagram" class="icone-contact">
+                            <p class="info-name">apoiomais.oficial</p>
                         </a>
                         <button class="abrir-modal-contato" type="button">Nos envie uma mensagem &#128070;</button>
                     </picture>
