@@ -63,7 +63,7 @@ function criarPathMunicipio($aneis, $minX, $maxY, $escala, $offsetX, $offsetY) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGs - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=10">
+    <link rel="stylesheet" href="../estilos/estilos.css?v=11">
 </head>
 <body>
     <header>
@@ -94,7 +94,6 @@ function criarPathMunicipio($aneis, $minX, $maxY, $escala, $offsetX, $offsetY) {
 
     <main class="ongs-main">
         <section class="ongs-apresentacao" aria-labelledby="ongs-titulo">
-            <span class="ongs-selo">Rede de Apoio Regional</span>
             <h1 id="ongs-titulo">Encontre ONGs e Serviços de Acolhimento perto de você</h1>
             <p>Aqui você localiza redes de suporte, projetos sociais e instituições parceiras em Curitiba e Região Metropolitana. Clique sobre o município no mapa para descobrir endereços, contatos e os serviços disponíveis para te ajudar nessa nova jornada de autonomia.</p>
         </section>
@@ -187,8 +186,6 @@ function criarPathMunicipio($aneis, $minX, $maxY, $escala, $offsetX, $offsetY) {
 
             cidades.forEach(cidade => {
                 cidade.addEventListener('click', () => selecionar(cidade));
-                cidade.addEventListener('mouseenter', () => selecionar(cidade));
-                cidade.addEventListener('focus', () => selecionar(cidade));
                 cidade.addEventListener('keydown', event => {
                     if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();

@@ -1019,7 +1019,7 @@ footer {
 }
 
 .ongs-selo { color: #7b5bbe; font-size: 18px; font-weight: 700; }
-.ongs-apresentacao h1 { margin: 12px auto 16px; color: #351378; font-size: clamp(30px, 4vw, 52px); line-height: 1.12; }
+.ongs-apresentacao h1 { margin: 0 auto 16px; color: #351378; font-size: clamp(30px, 4vw, 52px); line-height: 1.12; }
 .ongs-apresentacao p { max-width: 990px; margin: auto; color: #3e3553; font-size: 17px; line-height: 1.65; }
 
 .rede-regional {
@@ -1056,20 +1056,29 @@ footer {
 
 .cidade {
     cursor: pointer;
+    fill: #d7c2ef;
     stroke: #fff;
     stroke-width: 3;
     stroke-linejoin: round;
     vector-effect: non-scaling-stroke;
     transform-box: fill-box;
     transform-origin: center;
-    transition: fill .2s ease, filter .2s ease, transform .2s ease, stroke .2s ease;
+    transition: fill .2s ease, filter .2s ease, stroke .2s ease;
 }
-.cidade:hover, .cidade:focus-visible, .cidade.selecionada { transform: scale(1.018); filter: saturate(1.2) drop-shadow(0 7px 8px rgba(74, 46, 160, .28)); stroke: #4a2ea0; stroke-width: 4; outline: none; }
+.cidade:hover { filter: brightness(1.06); }
+.cidade:focus-visible { outline: none; stroke: #4a2ea0; stroke-width: 4; }
 .cidade-curitiba { fill: #cbb1ec; }
-.cidade-colombo { fill: #e1d4f2; }
-.cidade-pinhais { fill: #f6e4a9; }
+.cidade-colombo { fill: #dfd0f1; }
+.cidade-pinhais { fill: #d4bdeb; }
 .cidade-piraquara { fill: #dbc9ef; }
-.cidade-sao-jose { fill: #f4dfa0; }
+.cidade-sao-jose { fill: #cdb3e8; }
+.cidade.selecionada {
+    fill: #f6dfa0;
+    filter: drop-shadow(0 7px 8px rgba(74, 46, 160, .22));
+    stroke: #8b6a22;
+    stroke-width: 4;
+}
+.cidade.selecionada:hover { filter: brightness(1.03) drop-shadow(0 7px 8px rgba(74, 46, 160, .22)); }
 .cidade-label { fill: #30136d; font-size: 16px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; pointer-events: none; paint-order: stroke; stroke: rgba(255,255,255,.82); stroke-width: 4px; stroke-linejoin: round; }
 .cidade-label-curitiba { font-size: 20px; }
 .cidade-label-sao-jose { font-size: 14px; }
