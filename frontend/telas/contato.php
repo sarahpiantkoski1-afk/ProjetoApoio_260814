@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
                 <li><a href="inicio.php">Inicio</a></li>
                 <li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
                 <li><a href="postagens.php">Postagens</a></li>
+                <li><a href="ongs.php">ONGs</a></li>
                 <li><a href="contato.php" class="active">Contato</a></li>
                 <?php
                     if (!isset($_SESSION['usuario']) && (!isset($_SESSION['ong']))) {

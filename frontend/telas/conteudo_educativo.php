@@ -113,6 +113,7 @@ $conteudos = [
                 <li><a href="inicio.php">Inicio</a></li>
                 <li><a href="conteudo_educativo.php" class="active">Conteúdo Educativo</a></li>
                 <li><a href="postagens.php">Postagens</a></li>
+                <li><a href="ongs.php">ONGs</a></li>
                 <li><a href="contato.php">Contato</a></li>
                 <?php
                     if (!isset($_SESSION['usuario']) && (!isset($_SESSION['ong']))) {

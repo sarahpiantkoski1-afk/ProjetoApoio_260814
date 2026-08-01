@@ -1001,3 +1001,110 @@ footer {
         width: 100%;
     }
 }
+
+/* Rede regional de ONGs */
+.ongs-main {
+    position: relative;
+    padding: 150px 28px 70px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 5% 15%, rgba(185, 156, 228, .28), transparent 23%),
+        radial-gradient(circle at 94% 82%, rgba(177, 132, 255, .22), transparent 24%);
+}
+
+.ongs-apresentacao {
+    width: min(100%, 1050px);
+    margin: 0 auto 34px;
+    text-align: center;
+}
+
+.ongs-selo { color: #7b5bbe; font-size: 18px; font-weight: 700; }
+.ongs-apresentacao h1 { margin: 12px auto 16px; color: #351378; font-size: clamp(30px, 4vw, 52px); line-height: 1.12; }
+.ongs-apresentacao p { max-width: 990px; margin: auto; color: #3e3553; font-size: 17px; line-height: 1.65; }
+
+.rede-regional {
+    display: grid;
+    grid-template-columns: minmax(520px, 1.45fr) minmax(330px, .7fr);
+    gap: 28px;
+    width: min(100%, 1280px);
+    margin: auto;
+    padding: 28px;
+    border: 5px solid rgba(255,255,255,.8);
+    border-radius: 32px;
+    background: rgba(255,255,255,.45);
+    box-shadow: 0 22px 60px rgba(75, 38, 135, .12);
+    backdrop-filter: blur(10px);
+}
+
+.mapa-cidades {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 520px;
+    padding: 6px 8px 28px;
+}
+
+.mapa-svg {
+    display: block;
+    width: 100%;
+    max-height: 520px;
+    overflow: visible;
+    filter: drop-shadow(0 13px 18px rgba(74, 46, 160, .16));
+}
+
+.cidade {
+    cursor: pointer;
+    stroke: #fff;
+    stroke-width: 3;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: fill .2s ease, filter .2s ease, transform .2s ease, stroke .2s ease;
+}
+.cidade:hover, .cidade:focus-visible, .cidade.selecionada { transform: scale(1.018); filter: saturate(1.2) drop-shadow(0 7px 8px rgba(74, 46, 160, .28)); stroke: #4a2ea0; stroke-width: 4; outline: none; }
+.cidade-curitiba { fill: #cbb1ec; }
+.cidade-colombo { fill: #e1d4f2; }
+.cidade-pinhais { fill: #f6e4a9; }
+.cidade-piraquara { fill: #dbc9ef; }
+.cidade-sao-jose { fill: #f4dfa0; }
+.cidade-label { fill: #30136d; font-size: 16px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; pointer-events: none; paint-order: stroke; stroke: rgba(255,255,255,.82); stroke-width: 4px; stroke-linejoin: round; }
+.cidade-label-curitiba { font-size: 20px; }
+.cidade-label-sao-jose { font-size: 14px; }
+.fonte-mapa { position: absolute; bottom: 0; left: 12px; color: #756a84; font-size: 10px; }
+
+.painel-municipio { align-self: center; padding: 30px 26px; border: 1px solid #eee9f5; border-radius: 26px; background: rgba(255,255,255,.96); box-shadow: 0 12px 34px rgba(45, 27, 72, .14); }
+.municipio-cabecalho, .info-servico { display: flex; align-items: center; gap: 18px; }
+.municipio-cabecalho span { color: #4a2ea0; font-weight: 600; }
+.municipio-cabecalho h2 { margin: 5px 0 0; color: #351378; font-size: 29px; }
+.icone-circular { display: grid; place-items: center; flex: 0 0 56px; width: 56px; height: 56px; border-radius: 50%; background: #f0e7fb; color: #6035ad; font-size: 27px; font-weight: 700; }
+.icone-circular svg { width: 31px; fill: none; stroke: currentColor; stroke-width: 2; }
+.icone-local { flex-basis: 72px; width: 72px; height: 72px; }
+.painel-divisor { height: 2px; margin: 22px 0; background: #f2dfa6; }
+.info-servico { margin: 20px 0; }
+.info-servico h3 { margin-bottom: 5px; color: #351378; font-size: 16px; }
+.info-servico p { color: #6b5d7c; font-size: 14px; line-height: 1.45; }
+.botao-servicos { display: flex; justify-content: center; margin-top: 25px; padding: 16px 18px; border-radius: 13px; background: linear-gradient(135deg, #6a3dd1, #935fd3); color: #fff; font-weight: 700; text-align: center; box-shadow: 0 8px 20px rgba(106,61,209,.25); transition: .2s ease; }
+.botao-servicos:hover { background: #4a2ea0; transform: translateY(-2px); }
+.servicos-lista { width: min(100%, 900px); margin: auto; }
+.servicos-lista .card { width: 100%; border: 1px solid #eee4fb; box-shadow: 0 12px 30px rgba(74,46,160,.1); }
+.servicos-lista .card h2 { margin: 0 0 12px; color: #4a2ea0; }
+.servicos-lista .card p { line-height: 1.55; }
+.servicos-voltar { width: max-content; margin: 28px auto 0; }
+
+@media (max-width: 980px) {
+    .rede-regional { grid-template-columns: 1fr; }
+    .painel-municipio { width: min(100%, 600px); margin: auto; }
+}
+@media (max-width: 620px) {
+    .ongs-main { padding: 120px 14px 45px; }
+    .ongs-apresentacao p { font-size: 15px; }
+    .rede-regional { padding: 12px; border-radius: 22px; }
+    .mapa-cidades { min-height: 390px; padding-inline: 0; }
+    .mapa-svg { max-height: 390px; }
+    .cidade-label { font-size: 18px; }
+    .cidade-label-sao-jose { font-size: 15px; }
+    .painel-municipio { padding: 24px 18px; }
+}
