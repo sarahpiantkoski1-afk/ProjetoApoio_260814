@@ -1,5 +1,6 @@
 <?php
 require_once('../../backend/funcionalidades/config.php');
+require_once(__DIR__ . '/../componentes/layout.php');
 
 if (isset($_SESSION['usuario']) || isset($_SESSION['ong'])) {
     header('Location: inicio.php');
@@ -110,25 +111,10 @@ if (!$tokenValido || (!$registroToken && !$senhaAlterada && $mensagemErro === ''
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redefinir Senha - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=17">
+    <link rel="stylesheet" href="<?= caminhoEstilo('estilos.css') ?>">
 </head>
 <body>
-    <header>
-        <picture id="logo-img">
-            <img src="../imagens/apoiomais.png" alt="Apoio+" class="logo-header">
-        </picture>
-        <nav id="options-header" aria-label="Navegação principal">
-            <ul>
-                <li><a href="inicio.php">Inicio</a></li>
-                <li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
-                <li><a href="postagens.php">Postagens</a></li>
-                <li><a href="ongs.php">ONGs</a></li>
-                <li><a href="contato.php">Contato</a></li>
-                <li><a href="cadastro.php">Cadastre-se</a></li>
-                <li><a href="login.php" class="active">Entrar</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php renderizarCabecalho('login'); ?>
 
     <main class="recuperar-senha-main">
         <section class="recuperar-senha-card" aria-labelledby="redefinir-senha-titulo">
@@ -163,7 +149,6 @@ if (!$tokenValido || (!$registroToken && !$senhaAlterada && $mensagemErro === ''
         </section>
     </main>
 
-    <footer><p>Apoio+ O guia colaborativo para jovens egressos de abrigos institucionais</p></footer>
-    <script src="header-menu.js"></script>
+    <?php renderizarRodape(); ?>
 </body>
 </html>

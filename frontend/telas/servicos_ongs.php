@@ -1,13 +1,8 @@
 <?php
 require_once('../../backend/funcionalidades/config.php');
+require_once(__DIR__ . '/../componentes/layout.php');
 
-$municipios = [
-    'curitiba' => ['nome' => 'Curitiba', 'itens' => ['Fundação de Ação Social (FAS)', 'Centro de Referência da Assistência Social (CRAS)', 'Casa da Acolhida e do Regresso']],
-    'pinhais' => ['nome' => 'Pinhais', 'itens' => ['Secretaria Municipal de Assistência Social', 'CRAS Norte', 'Centro da Juventude de Pinhais']],
-    'colombo' => ['nome' => 'Colombo', 'itens' => ['CRAS Maracanã', 'Centro da Juventude Colombo', 'Secretaria de Assistência Social']],
-    'piraquara' => ['nome' => 'Piraquara', 'itens' => ['CRAS São Cristóvão', 'Centro da Juventude de Piraquara', 'Proteção Social Especial']],
-    'sao-jose' => ['nome' => 'São José dos Pinhais', 'itens' => ['CRAS Central', 'Centro da Juventude', 'Secretaria de Assistência Social']]
-];
+$municipios = require(__DIR__ . '/../dados/municipios.php');
 $chave = $_GET['cidade'] ?? 'curitiba';
 $cidade = $municipios[$chave] ?? $municipios['curitiba'];
 ?>
@@ -17,16 +12,10 @@ $cidade = $municipios[$chave] ?? $municipios['curitiba'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviços em <?= htmlspecialchars($cidade['nome']) ?> - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=10">
+    <link rel="stylesheet" href="<?= caminhoEstilo('estilos.css') ?>">
 </head>
 <body>
-    <header>
-        <picture id="logo-img"><img src="../imagens/apoiomais.png" alt="Apoio+" class="logo-header"></picture>
-        <nav id="options-header"><ul>
-            <li><a href="inicio.php">Inicio</a></li><li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
-            <li><a href="postagens.php">Postagens</a></li><li><a href="ongs.php" class="active">ONGs</a></li><li><a href="contato.php">Contato</a></li>
-        </ul></nav>
-    </header>
+    <?php renderizarCabecalho('ongs'); ?>
     <main class="ongs-main">
         <section class="ongs-apresentacao">
             <span class="ongs-selo">Rede de Apoio Regional</span>
@@ -40,7 +29,6 @@ $cidade = $municipios[$chave] ?? $municipios['curitiba'];
             <a class="botao-servicos servicos-voltar" href="ongs.php">&larr; Voltar ao mapa</a>
         </section>
     </main>
-    <footer><p>Apoio+ O guia colaborativo para jovens egressos de abrigos institucionais</p></footer>
-    <script src="header-menu.js"></script>
+    <?php renderizarRodape(); ?>
 </body>
 </html>

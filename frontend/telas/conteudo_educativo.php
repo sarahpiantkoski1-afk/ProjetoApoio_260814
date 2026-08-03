@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once(__DIR__ . '/../componentes/layout.php');
 
 $conteudos = [
     [
@@ -101,34 +102,10 @@ $conteudos = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conteúdo Educativo - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=14">
+    <link rel="stylesheet" href="<?= caminhoEstilo('estilos.css') ?>">
 </head>
 <body>
-    <header>
-        <picture id="logo-img">
-            <img src="../imagens/apoiomais.png" alt="Logo" class="logo-header">
-        </picture>
-        <nav id="options-header">
-            <ul>
-                <li><a href="inicio.php">Inicio</a></li>
-                <li><a href="conteudo_educativo.php" class="active">Conteúdo Educativo</a></li>
-                <li><a href="postagens.php">Postagens</a></li>
-                <li><a href="ongs.php">ONGs</a></li>
-                <li><a href="contato.php">Contato</a></li>
-                <?php
-                    if (!isset($_SESSION['usuario']) && (!isset($_SESSION['ong']))) {
-                        echo '<li><a href="inicio.php">Cadastre-se</a></li>';
-                        echo '<li><a href="login.php">Entrar</a></li>';
-                    } else {
-                        if (isset($_SESSION['ong']) && (!isset($_SESSION['usuario']))) {
-                            echo '<li><a href="post_ongs.php">Criar Post</a></li>';
-                        }
-                        echo '<li><a href="logout.php" class="logout">Sair &rarr;</a></li>';
-                    }
-                ?>
-            </ul>
-        </nav>
-    </header>
+    <?php renderizarCabecalho('conteudo'); ?>
     <main class="educativo-main">
         <section class="educativo-container">
             <h1>Conte&uacute;dos Educativos</h1>
@@ -160,10 +137,7 @@ $conteudos = [
             <p class="sem-resultados" hidden>Nenhum conte&uacute;do encontrado para esta categoria.</p>
         </section>
     </main>
-    <footer>
-        <p>Apoio+  O guia colaborativo para jovens egressos de abrigos institucionais</p>
-    </footer>
-    <script src="header-menu.js"></script>
+    <?php renderizarRodape(); ?>
     <script src="post-filter.js"></script>
 </body>
 </html>

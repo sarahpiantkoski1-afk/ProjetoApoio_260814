@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../../backend/funcionalidades/mailer.php');
+require_once(__DIR__ . '/../componentes/layout.php');
 
 if (!isset($_SESSION['csrf_contato'])) {
     $_SESSION['csrf_contato'] = bin2hex(random_bytes(32));
@@ -86,35 +87,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=16">
-    <link rel="stylesheet" href="../estilos/forms.css?v=5">
+    <link rel="stylesheet" href="<?= caminhoEstilo('estilos.css') ?>">
+    <link rel="stylesheet" href="<?= caminhoEstilo('forms.css') ?>">
 </head>
 <body>
-    <header>
-        <picture id="logo-img">
-            <img src="../imagens/apoiomais.png" alt="Logo" class="logo-header">
-        </picture>
-        <nav id="options-header">
-            <ul>
-                <li><a href="inicio.php">Inicio</a></li>
-                <li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
-                <li><a href="postagens.php">Postagens</a></li>
-                <li><a href="ongs.php">ONGs</a></li>
-                <li><a href="contato.php" class="active">Contato</a></li>
-                <?php
-                    if (!isset($_SESSION['usuario']) && (!isset($_SESSION['ong']))) {
-                        echo '<li><a href="cadastro.php">Cadastre-se</a></li>';
-                        echo '<li><a href="login.php">Entrar</a></li>';
-                    } else {
-                        if (isset($_SESSION['ong']) && (!isset($_SESSION['usuario']))) {
-                            echo '<li><a href="post_ongs.php">Criar Post</a></li>';
-                        }
-                        echo '<li><a href="logout.php" class="logout">Sair &rarr;</a></li>';
-                    }
-                ?>
-            </ul>
-        </nav>
-    </header>
+    <?php renderizarCabecalho('contato'); ?>
 
     <main>
         <section class="form-container">
@@ -181,10 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
         </section>
     </main>
 
-    <footer>
-        <p>Apoio+  O guia colaborativo para jovens egressos de abrigos institucionais</p>
-    </footer>
-    <script src="header-menu.js"></script>
+    <?php renderizarRodape(); ?>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const modal = document.getElementById("modal-contato");

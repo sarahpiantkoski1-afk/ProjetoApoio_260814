@@ -1,15 +1,24 @@
 <?php
 require_once('../../backend/funcionalidades/config.php');
+require_once(__DIR__ . '/../componentes/layout.php');
 
 $arquivoMapa = __DIR__ . '/../dados/municipios-rmc.geojson';
 $geojsonMapa = json_decode(file_get_contents($arquivoMapa), true);
-$configuracaoMunicipios = [
-    '4106902' => ['chave' => 'curitiba', 'nome' => 'Curitiba'],
-    '4119152' => ['chave' => 'pinhais', 'nome' => 'Pinhais'],
-    '4105805' => ['chave' => 'colombo', 'nome' => 'Colombo'],
-    '4119509' => ['chave' => 'piraquara', 'nome' => 'Piraquara'],
-    '4125506' => ['chave' => 'sao-jose', 'nome' => 'São José dos Pinhais']
-];
+$municipios = require(__DIR__ . '/../dados/municipios.php');
+$configuracaoMunicipios = [];
+$dadosMunicipiosJavaScript = [];
+
+foreach ($municipios as $chaveMunicipio => $dadosMunicipio) {
+    $configuracaoMunicipios[$dadosMunicipio['codigo_ibge']] = [
+        'chave' => $chaveMunicipio,
+        'nome' => $dadosMunicipio['nome'],
+    ];
+    $dadosMunicipiosJavaScript[$chaveMunicipio] = [
+        'nome' => $dadosMunicipio['nome'],
+        'ongs' => $dadosMunicipio['ongs'],
+        'servicos' => $dadosMunicipio['servicos'],
+    ];
+}
 $municipiosMapa = [];
 $pontosMapa = [];
 
@@ -63,34 +72,10 @@ function criarPathMunicipio($aneis, $minX, $maxY, $escala, $offsetX, $offsetY) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGs - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=13">
+    <link rel="stylesheet" href="<?= caminhoEstilo('estilos.css') ?>">
 </head>
 <body>
-    <header>
-        <picture id="logo-img">
-            <img src="../imagens/apoiomais.png" alt="Apoio+" class="logo-header">
-        </picture>
-        <nav id="options-header" aria-label="Navegação principal">
-            <ul>
-                <li><a href="inicio.php">Inicio</a></li>
-                <li><a href="conteudo_educativo.php">Conteúdo Educativo</a></li>
-                <li><a href="postagens.php">Postagens</a></li>
-                <li><a href="ongs.php" class="active" aria-current="page">ONGs</a></li>
-                <li><a href="contato.php">Contato</a></li>
-                <?php
-                    if (!isset($_SESSION['usuario']) && !isset($_SESSION['ong'])) {
-                        echo '<li><a href="cadastro.php">Cadastre-se</a></li>';
-                        echo '<li><a href="login.php">Entrar</a></li>';
-                    } else {
-                        if (isset($_SESSION['ong']) && !isset($_SESSION['usuario'])) {
-                            echo '<li><a href="post_ongs.php">Criar Post</a></li>';
-                        }
-                        echo '<li><a href="logout.php" class="logout">Sair &rarr;</a></li>';
-                    }
-                ?>
-            </ul>
-        </nav>
-    </header>
+    <?php renderizarCabecalho('ongs'); ?>
 
     <main class="ongs-main">
         <section class="ongs-apresentacao" aria-labelledby="ongs-titulo">
@@ -151,17 +136,10 @@ function criarPathMunicipio($aneis, $minX, $maxY, $escala, $offsetX, $offsetY) {
         </section>
     </main>
 
-    <footer><p>Apoio+ O guia colaborativo para jovens egressos de abrigos institucionais</p></footer>
-    <script src="header-menu.js"></script>
+    <?php renderizarRodape(); ?>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const municipios = {
-                curitiba: { nome: 'Curitiba', ongs: '78 organizações encontradas', servicos: 'Apoio psicológico, moradia, cursos, alimentação e mais' },
-                pinhais: { nome: 'Pinhais', ongs: '16 organizações encontradas', servicos: 'Cursos, orientação profissional, saúde e assistência social' },
-                colombo: { nome: 'Colombo', ongs: '21 organizações encontradas', servicos: 'Acolhimento, alimentação, capacitação e apoio familiar' },
-                piraquara: { nome: 'Piraquara', ongs: '12 organizações encontradas', servicos: 'Assistência social, saúde mental, cursos e documentação' },
-                'sao-jose': { nome: 'São José dos Pinhais', ongs: '27 organizações encontradas', servicos: 'Moradia, emprego, apoio psicológico e alimentação' }
-            };
+            const municipios = <?= json_encode($dadosMunicipiosJavaScript, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
             const cidades = document.querySelectorAll('.cidade');
             const nome = document.getElementById('municipio-nome');
             const ongs = document.getElementById('municipio-ongs');
