@@ -5,6 +5,22 @@ require_once(__DIR__ . '/../componentes/layout.php');
 $municipios = require(__DIR__ . '/../dados/municipios.php');
 $chave = $_GET['cidade'] ?? 'curitiba';
 $cidade = $municipios[$chave] ?? $municipios['curitiba'];
+$quantidadeLocais = count($cidade['itens']);
+
+function normalizarLocal(string|array $item): array
+{
+    if (is_array($item)) {
+        return $item;
+    }
+
+    return [
+        'nome' => $item,
+        'descricao' => 'Atendimento, orientação e encaminhamento para a rede de proteção social do município.',
+        'telefone' => '',
+        'email' => '',
+        'endereco' => '',
+    ];
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,17 +34,61 @@ $cidade = $municipios[$chave] ?? $municipios['curitiba'];
     <?php renderizarCabecalho('ongs'); ?>
     <main class="ongs-main">
         <section class="ongs-apresentacao">
-            <span class="ongs-selo">Rede de Apoio Regional</span>
             <h1>Serviços e instituições em <?= htmlspecialchars($cidade['nome']) ?></h1>
-            <p>Consulte abaixo os serviços cadastrados para este município.</p>
+            <p><?= $quantidadeLocais ?> <?= $quantidadeLocais === 1 ? 'local cadastrado' : 'locais cadastrados' ?> para este município. Consulte abaixo os serviços disponíveis.</p>
         </section>
         <section class="servicos-lista">
             <?php foreach ($cidade['itens'] as $item): ?>
-                <article class="card"><h2><?= htmlspecialchars($item) ?></h2><p>Atendimento, orientação e encaminhamento para a rede de proteção social do município.</p></article>
+                <?php
+                    $local = normalizarLocal($item);
+                    $possuiDetalhes = $local['telefone'] !== '' || $local['email'] !== '' || $local['endereco'] !== '';
+                    $telefoneLink = preg_replace('/[^0-9+]/', '', $local['telefone']);
+                ?>
+                <article class="card servico-card<?= $possuiDetalhes ? ' servico-card-com-detalhes' : '' ?>">
+                    <h2><?= htmlspecialchars($local['nome'], ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p class="servico-descricao"><?= htmlspecialchars($local['descricao'], ENT_QUOTES, 'UTF-8') ?></p>
+
+                    <?php if ($possuiDetalhes): ?>
+                        <div class="servico-card-detalhes" id="detalhes-<?= htmlspecialchars(md5($local['nome']), ENT_QUOTES, 'UTF-8') ?>">
+                            <p class="servico-endereco"><strong>Endereço:</strong> <?= htmlspecialchars($local['endereco'], ENT_QUOTES, 'UTF-8') ?></p>
+                            <p class="servico-contato">
+                                <strong>Contato:</strong>
+                                <?php if ($local['telefone'] !== ''): ?>
+                                    <a href="tel:<?= htmlspecialchars($telefoneLink, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($local['telefone'], ENT_QUOTES, 'UTF-8') ?></a>
+                                <?php endif; ?>
+                                <?php if ($local['telefone'] !== '' && $local['email'] !== ''): ?>
+                                    <span aria-hidden="true"> · </span>
+                                <?php endif; ?>
+                                <?php if ($local['email'] !== ''): ?>
+                                    <a href="mailto:<?= htmlspecialchars($local['email'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($local['email'], ENT_QUOTES, 'UTF-8') ?></a>
+                                <?php endif; ?>
+                                <?php if ($local['telefone'] === '' && $local['email'] === ''): ?>
+                                    Não informado
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                        <button
+                            class="servico-card-toggle"
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls="detalhes-<?= htmlspecialchars(md5($local['nome']), ENT_QUOTES, 'UTF-8') ?>"
+                        >Ver endereço e contato</button>
+                    <?php endif; ?>
+                </article>
             <?php endforeach; ?>
             <a class="botao-servicos servicos-voltar" href="ongs.php">&larr; Voltar ao mapa</a>
         </section>
     </main>
     <?php renderizarRodape(); ?>
+    <script>
+        document.querySelectorAll('.servico-card-toggle').forEach((botao) => {
+            botao.addEventListener('click', () => {
+                const card = botao.closest('.servico-card');
+                const aberto = card.classList.toggle('aberto');
+                botao.setAttribute('aria-expanded', String(aberto));
+                botao.textContent = aberto ? 'Ocultar endereço e contato' : 'Ver endereço e contato';
+            });
+        });
+    </script>
 </body>
 </html>

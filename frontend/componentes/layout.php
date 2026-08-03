@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-const APOIO_ASSET_VERSION = '18';
+const APOIO_ASSET_VERSION = '20';
 
 function caminhoEstilo(string $arquivo, int $nivel = 0): string
 {

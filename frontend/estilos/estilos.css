@@ -1151,6 +1151,39 @@ footer {
 .servicos-lista .card { width: 100%; border: 1px solid #eee4fb; box-shadow: 0 12px 30px rgba(74,46,160,.1); }
 .servicos-lista .card h2 { margin: 0 0 12px; color: #4a2ea0; }
 .servicos-lista .card p { line-height: 1.55; }
+.servico-card { position: relative; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.servico-card-com-detalhes.aberto { border-color: #cdb7ed; box-shadow: 0 16px 38px rgba(74,46,160,.16); }
+.servico-descricao { color: #4d445d; }
+.servico-card-detalhes {
+    max-height: 0;
+    margin-top: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: max-height .3s ease, margin-top .3s ease, opacity .2s ease, transform .3s ease;
+}
+.servico-card.aberto .servico-card-detalhes {
+    max-height: 220px;
+    margin-top: 20px;
+    opacity: 1;
+    transform: translateY(0);
+}
+.servico-card-detalhes p { margin: 7px 0; color: #655874; font-size: 14px; }
+.servico-card-detalhes strong { color: #351378; }
+.servico-card-detalhes a { color: #5d36aa; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.servico-card-toggle {
+    margin-top: 18px;
+    padding: 9px 14px;
+    border: 1px solid #d8c8f2;
+    border-radius: 999px;
+    background: #f4effc;
+    color: #4a2ea0;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.servico-card-toggle:hover,
+.servico-card-toggle:focus-visible { border-color: #6a3dd1; background: #6a3dd1; color: #fff; outline: none; }
 .servicos-voltar { width: max-content; margin: 28px auto 0; }
 
 @media (max-width: 980px) {

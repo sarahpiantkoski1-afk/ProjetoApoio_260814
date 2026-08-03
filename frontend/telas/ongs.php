@@ -9,13 +9,17 @@ $configuracaoMunicipios = [];
 $dadosMunicipiosJavaScript = [];
 
 foreach ($municipios as $chaveMunicipio => $dadosMunicipio) {
+    $quantidadeLocais = count($dadosMunicipio['itens']);
+    $textoQuantidade = $quantidadeLocais === 1
+        ? '1 instituição ou serviço cadastrado'
+        : $quantidadeLocais . ' instituições e serviços cadastrados';
     $configuracaoMunicipios[$dadosMunicipio['codigo_ibge']] = [
         'chave' => $chaveMunicipio,
         'nome' => $dadosMunicipio['nome'],
     ];
     $dadosMunicipiosJavaScript[$chaveMunicipio] = [
         'nome' => $dadosMunicipio['nome'],
-        'ongs' => $dadosMunicipio['ongs'],
+        'ongs' => $textoQuantidade,
         'servicos' => $dadosMunicipio['servicos'],
     ];
 }
@@ -121,7 +125,7 @@ function criarPathMunicipio($aneis, $minX, $maxY, $escala, $offsetX, $offsetY) {
                 <div class="painel-divisor"></div>
                 <div class="info-servico">
                     <div class="icone-circular" aria-hidden="true">⌂</div>
-                    <div><h3>ONGs e Instituições</h3><p id="municipio-ongs">78 organizações encontradas</p></div>
+                    <div><h3>ONGs e Instituições</h3><p id="municipio-ongs"><?= htmlspecialchars($dadosMunicipiosJavaScript['curitiba']['ongs'], ENT_QUOTES, 'UTF-8') ?></p></div>
                 </div>
                 <div class="info-servico">
                     <div class="icone-circular" aria-hidden="true">♡</div>
