@@ -6,6 +6,10 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
     exit();
 }
 
+$erroLogin = isset($_GET['erro'])
+    ? 'CNPJ, e-mail ou senha incorretos. Verifique os dados e tente novamente.'
+    : '';
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +18,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Ongs</title>
-    <link rel="stylesheet" href="../../estilos/estilos.css?v=10">
+    <link rel="stylesheet" href="../../estilos/estilos.css?v=17">
     <link rel="stylesheet" href="../../estilos/forms.css?v=4">
 </head>
 <body>
@@ -55,6 +59,10 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
             <article class="form-down">
                 <form action="../../../backend/funcionalidades/login/verifica_login_ongs.php" method="post">
                     <input type="hidden" name="tipo_usuario" value="ong">
+
+                    <?php if ($erroLogin !== '') { ?>
+                        <div class="form-feedback form-feedback-erro" role="alert"><?= htmlspecialchars($erroLogin, ENT_QUOTES, 'UTF-8') ?></div>
+                    <?php } ?>
 
                     <label for="cnpj">CNPJ</label>
                     <input 

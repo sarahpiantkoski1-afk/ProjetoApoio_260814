@@ -497,7 +497,7 @@ body.modal-contato-aberto {
 
 .recuperar-senha-card h2 {
     margin: 0 0 8px;
-    color: #1b0622;
+    color: #351378;
     font-size: 30px;
     font-weight: 800;
     line-height: 1.15;
@@ -513,32 +513,46 @@ body.modal-contato-aberto {
 .recuperar-senha-form {
     display: flex;
     flex-direction: column;
-    gap: 38px;
+    gap: 10px;
 }
 
-.recuperar-senha-form input[type="email"] {
+.recuperar-senha-form label {
+    color: #351378;
+    font-weight: 600;
+}
+
+.recuperar-senha-form label:not(:first-of-type) {
+    margin-top: 18px;
+}
+
+.recuperar-senha-form input[type="email"],
+.recuperar-senha-form input[type="password"] {
     width: 100%;
     padding: 17px 20px;
-    border: 1px solid #e7dcff;
-    border-radius: 0;
-    background: #f0eaff;
+    min-height: 54px;
+    border: 2px solid #d8c8f2;
+    border-radius: 12px;
+    background: #fff;
     color: #1b0622;
     font-size: 16px;
     outline: none;
     transition: .2s ease;
 }
 
-.recuperar-senha-form input[type="email"]::placeholder {
+.recuperar-senha-form input[type="email"]::placeholder,
+.recuperar-senha-form input[type="password"]::placeholder {
     color: #6b5d7c;
 }
 
-.recuperar-senha-form input[type="email"]:focus {
+.recuperar-senha-form input[type="email"]:focus,
+.recuperar-senha-form input[type="password"]:focus {
     border-color: #b184ff;
     box-shadow: 0 0 0 3px rgba(177, 132, 255, 0.22);
 }
 
 .recuperar-senha-form button {
     width: 100%;
+    margin-top: 20px;
     padding: 15px 22px;
     border: 0;
     border-radius: 999px;
@@ -572,6 +586,29 @@ body.modal-contato-aberto {
 .recuperar-senha-voltar:hover {
     color: #4a2ea0;
     text-decoration: underline;
+}
+
+.form-feedback {
+    margin: 18px 0 24px;
+    padding: 14px 16px;
+    border: 1px solid #d8c8f2;
+    border-radius: 12px;
+    background: #f4effc;
+    color: #351378;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.form-feedback-sucesso {
+    border-color: #a8d7b5;
+    background: #edf9f0;
+    color: #235d32;
+}
+
+.form-feedback-erro {
+    border-color: #e4a8ae;
+    background: #fff1f2;
+    color: #8a2630;
 }
 
 #sobre {

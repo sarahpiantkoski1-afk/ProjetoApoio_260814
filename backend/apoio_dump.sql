@@ -39,6 +39,22 @@ INSERT INTO `ongs` (`id`, `nome`, `cnpj`, `email`, `senha`) VALUES
 (4, 'Projeto Renascer', '45.678.901/0001-40', 'contato@renascer.org', 'senha123'),
 (5, 'FAS - Fundacao de Acao Social', '56.789.012/0001-50', 'contato@fas.pr.gov.br', 'senha123');
 
+DROP TABLE IF EXISTS `password_reset_tokens`;
+CREATE TABLE `password_reset_tokens` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_type` enum('egresso','ong') NOT NULL,
+  `user_id` int NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `token_hash` char(64) NOT NULL,
+  `expires_at` datetime NOT NULL,
+  `used_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_password_reset_token_hash` (`token_hash`),
+  KEY `idx_password_reset_lookup` (`token_hash`,`expires_at`,`used_at`),
+  KEY `idx_password_reset_user` (`user_type`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 DROP TABLE IF EXISTS `postagens`;
 CREATE TABLE `postagens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

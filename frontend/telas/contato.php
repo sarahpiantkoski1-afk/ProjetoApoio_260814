@@ -1,5 +1,10 @@
 <?php
 session_start();
+require_once('../../backend/funcionalidades/mailer.php');
+
+if (!isset($_SESSION['csrf_contato'])) {
+    $_SESSION['csrf_contato'] = bin2hex(random_bytes(32));
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
     header('Content-Type: application/json; charset=UTF-8');
@@ -9,37 +14,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
     $ong = trim($_POST['ong'] ?? '');
     $assunto = trim($_POST['assunto'] ?? '');
     $mensagem = trim($_POST['mensagem'] ?? '');
+    $csrf = $_POST['csrf_token'] ?? '';
 
-    if ($nome && filter_var($email, FILTER_VALIDATE_EMAIL) && $assunto && $mensagem) {
-        $destinatario = 'apoiomais.oficial@gmail.com';
-        $assuntoEmail = 'Contato Apoio+ - ' . $assunto;
-        $conteudoEmail = "Nome: {$nome}\n";
-        $conteudoEmail .= "E-mail para resposta: {$email}\n";
-        $conteudoEmail .= "ONG: " . ($ong ?: 'Nao informado') . "\n";
-        $conteudoEmail .= "Assunto: {$assunto}\n\n";
-        $conteudoEmail .= "Mensagem:\n{$mensagem}\n";
-        $headers = "From: Apoio+ <no-reply@apoio.local>\r\n";
-        $headers .= "Reply-To: {$email}\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $csrfValido = is_string($csrf) && hash_equals($_SESSION['csrf_contato'], $csrf);
+    $camposValidos = $nome !== ''
+        && mb_strlen($nome) <= 100
+        && filter_var($email, FILTER_VALIDATE_EMAIL)
+        && mb_strlen($email) <= 150
+        && mb_strlen($ong) <= 150
+        && $assunto !== ''
+        && mb_strlen($assunto) <= 150
+        && $mensagem !== ''
+        && mb_strlen($mensagem) <= 5000;
 
-        // Envio simulado para testes locais no XAMPP, onde mail() costuma falhar sem SMTP.
-        // Para ativar o envio real depois, troque a linha abaixo por:
-        // $envioOk = @mail($destinatario, $assuntoEmail, $conteudoEmail, $headers);
-        $envioOk = true;
-
+    if (!$csrfValido || !$camposValidos) {
+        http_response_code(422);
         echo json_encode([
-            'status' => $envioOk ? 'ok' : 'erro',
-            'message' => $envioOk
-                ? 'Obrigado! Sua mensagem foi enviada com sucesso e logo entraremos em contato. 💜'
-                : 'Nao foi possivel enviar a mensagem agora. Tente novamente mais tarde.'
+            'status' => 'erro',
+            'message' => 'Preencha os campos obrigatorios corretamente e tente novamente.'
         ]);
         exit();
     }
 
-    echo json_encode([
-        'status' => 'erro',
-        'message' => 'Preencha os campos obrigatorios corretamente.'
-    ]);
+    $escapar = static fn (string $valor): string => htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+    $ongExibida = $ong !== '' ? $ong : 'Não informado';
+    $html = '<h2>Nova mensagem recebida pelo Apoio+</h2>'
+        . '<p><strong>Nome:</strong> ' . $escapar($nome) . '</p>'
+        . '<p><strong>E-mail para resposta:</strong> ' . $escapar($email) . '</p>'
+        . '<p><strong>ONG:</strong> ' . $escapar($ongExibida) . '</p>'
+        . '<p><strong>Assunto:</strong> ' . $escapar($assunto) . '</p>'
+        . '<p><strong>Mensagem:</strong><br>' . nl2br($escapar($mensagem)) . '</p>';
+    $texto = "Nova mensagem recebida pelo Apoio+\n\n"
+        . "Nome: {$nome}\n"
+        . "E-mail para resposta: {$email}\n"
+        . "ONG: {$ongExibida}\n"
+        . "Assunto: {$assunto}\n\n"
+        . "Mensagem:\n{$mensagem}\n";
+
+    try {
+        enviarEmail(
+            'apoiomais.oficial@gmail.com',
+            'Apoio+',
+            'Contato Apoio+ - ' . $assunto,
+            $html,
+            $texto,
+            ['email' => $email, 'nome' => $nome]
+        );
+
+        $_SESSION['csrf_contato'] = bin2hex(random_bytes(32));
+        echo json_encode([
+            'status' => 'ok',
+            'message' => 'Obrigado! Sua mensagem foi enviada com sucesso e logo entraremos em contato. 💜',
+            'csrf_token' => $_SESSION['csrf_contato']
+        ]);
+    } catch (Throwable $erro) {
+        error_log('Falha no formulario de contato: ' . $erro->getMessage());
+        http_response_code(500);
+        echo json_encode([
+            'status' => 'erro',
+            'message' => 'Nao foi possivel enviar a mensagem agora. Tente novamente mais tarde.'
+        ]);
+    }
     exit();
 }
 
@@ -51,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato - Apoio+</title>
-    <link rel="stylesheet" href="../estilos/estilos.css?v=15">
+    <link rel="stylesheet" href="../estilos/estilos.css?v=16">
     <link rel="stylesheet" href="../estilos/forms.css?v=5">
 </head>
 <body>
@@ -115,21 +150,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
 
                 <form class="formulario-modal-contato" method="post" action="contato.php">
                     <input type="hidden" name="enviar_contato" value="1">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_contato'], ENT_QUOTES, 'UTF-8') ?>">
 
                     <label for="nome-contato">Nome</label>
-                    <input type="text" name="nome" id="nome-contato" placeholder="Nome" required>
+                    <input type="text" name="nome" id="nome-contato" maxlength="100" placeholder="Nome" required>
 
                     <label for="email-contato">E-mail para receber a resposta</label>
-                    <input type="email" name="email" id="email-contato" placeholder="E-mail para receber a resposta" required>
+                    <input type="email" name="email" id="email-contato" maxlength="150" placeholder="E-mail para receber a resposta" required>
 
                     <label for="ong-contato">ONGs (opcional)</label>
-                    <input type="text" name="ong" id="ong-contato" placeholder="ONGs (opcional)">
+                    <input type="text" name="ong" id="ong-contato" maxlength="150" placeholder="ONGs (opcional)">
 
                     <label for="assunto-contato">Assunto</label>
-                    <input type="text" name="assunto" id="assunto-contato" placeholder="Assunto" required>
+                    <input type="text" name="assunto" id="assunto-contato" maxlength="150" placeholder="Assunto" required>
 
                     <label for="mensagem-contato">Mensagem</label>
-                    <textarea name="mensagem" id="mensagem-contato" rows="5" placeholder="Mensagem" required></textarea>
+                    <textarea name="mensagem" id="mensagem-contato" rows="5" maxlength="5000" placeholder="Mensagem" required></textarea>
 
                     <button class="botao-enviar-contato" type="submit">ENVIAR &rarr;</button>
                 </form>
@@ -178,6 +214,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
                     event.preventDefault();
 
                     const dados = new FormData(formularioContato);
+                    const botaoEnviar = formularioContato.querySelector('[type="submit"]');
+                    botaoEnviar.disabled = true;
 
                     fetch("contato.php", {
                         method: "POST",
@@ -187,6 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
                     .then((data) => {
                         if (data.status === "ok") {
                             formularioContato.reset();
+                            formularioContato.elements.csrf_token.value = data.csrf_token;
                             fechar();
                             alert(data.message);
                             return;
@@ -196,6 +235,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_contato'])) {
                     })
                     .catch(() => {
                         alert("Nao foi possivel enviar a mensagem agora. Tente novamente mais tarde.");
+                    })
+                    .finally(() => {
+                        botaoEnviar.disabled = false;
                     });
                 });
             }

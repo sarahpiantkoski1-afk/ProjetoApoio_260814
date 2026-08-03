@@ -19,6 +19,7 @@ $resultado = $consulta->get_result();
 $dados = $resultado->fetch_assoc();
 
 if ($dados && password_verify($senha, $dados['senha'])) {
+    session_regenerate_id(true);
     $_SESSION['ong'] = $email;
     $_SESSION['ong_id'] = $dados['id'];
     unset($_SESSION['usuario']);
