@@ -100,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php renderizarFavicon(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar Senha</title>
@@ -110,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <main class="recuperar-senha-main">
         <section class="recuperar-senha-card" aria-labelledby="recuperar-senha-titulo">
-            <h2 id="recuperar-senha-titulo">Esqueceu a senha?</h2>
+            <h2 id="recuperar-senha-titulo" class="titulo-tela">Esqueceu a senha?</h2>
             <p>Redefina a senha em duas etapas</p>
 
             <?php if ($mensagemRetorno !== '') { ?>

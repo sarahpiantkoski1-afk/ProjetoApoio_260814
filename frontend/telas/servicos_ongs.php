@@ -25,6 +25,7 @@ function normalizarLocal(string|array $item): array
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php renderizarFavicon(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviços em <?= htmlspecialchars($cidade['nome']) ?> - Apoio+</title>
@@ -34,10 +35,13 @@ function normalizarLocal(string|array $item): array
     <?php renderizarCabecalho('ongs'); ?>
     <main class="ongs-main">
         <section class="ongs-apresentacao">
-            <h1>Serviços e instituições em <?= htmlspecialchars($cidade['nome']) ?></h1>
+            <h1 class="titulo-tela">Serviços e instituições em <?= htmlspecialchars($cidade['nome']) ?></h1>
             <p><?= $quantidadeLocais ?> <?= $quantidadeLocais === 1 ? 'local cadastrado' : 'locais cadastrados' ?> para este município. Consulte abaixo os serviços disponíveis.</p>
         </section>
         <section class="servicos-lista">
+            <div class="servicos-topo">
+                <a class="botao-servicos servicos-voltar" href="ongs.php">&larr; Voltar ao mapa</a>
+            </div>
             <?php foreach ($cidade['itens'] as $item): ?>
                 <?php
                     $local = normalizarLocal($item);
@@ -76,7 +80,6 @@ function normalizarLocal(string|array $item): array
                     <?php endif; ?>
                 </article>
             <?php endforeach; ?>
-            <a class="botao-servicos servicos-voltar" href="ongs.php">&larr; Voltar ao mapa</a>
         </section>
     </main>
     <?php renderizarRodape(); ?>

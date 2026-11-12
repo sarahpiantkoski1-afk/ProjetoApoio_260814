@@ -12,7 +12,21 @@ CREATE TABLE `egressos` (
   `nome` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL UNIQUE,
   `senha` varchar(255) NOT NULL,
+  `receber_notificacoes` tinyint(1) NOT NULL DEFAULT 0,
+  `historico_navegacao_ativo` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `historico_navegacao` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `egresso_id` int(11) NOT NULL,
+  `tipo` enum('conteudo','vaga','video') NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `visitado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_historico_egresso_item` (`egresso_id`,`tipo`,`item_id`),
+  KEY `idx_historico_egresso_tipo` (`egresso_id`,`tipo`),
+  CONSTRAINT `fk_historico_egresso` FOREIGN KEY (`egresso_id`) REFERENCES `egressos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `egressos` (`id`, `nome`, `email`, `senha`) VALUES
@@ -30,6 +44,20 @@ CREATE TABLE `ongs` (
   `email` varchar(150) NOT NULL UNIQUE,
   `senha` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `conteudos_educativos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ong_id` int(11) NOT NULL,
+  `titulo` varchar(200) NOT NULL,
+  `descricao` varchar(1200) NOT NULL,
+  `youtube_url` varchar(500) NOT NULL,
+  `youtube_id` char(11) NOT NULL,
+  `nichos` varchar(120) NOT NULL,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_conteudos_educativos_ong` (`ong_id`),
+  CONSTRAINT `fk_conteudos_educativos_ong` FOREIGN KEY (`ong_id`) REFERENCES `ongs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `ongs` (`id`, `nome`, `cnpj`, `email`, `senha`) VALUES
@@ -71,7 +99,6 @@ CREATE TABLE `postagens` (
 
 INSERT INTO `postagens` (`id`, `ong_id`, `titulo`, `descricao`, `link`, `categoria`, `data_postagem`) VALUES
 (1, 1, 'Curso Gratuito de Atendimento ao Cliente SENAC', 'Curso EAD com certificado', 'https://www.ead.senac.br/cursos-livres/atendimento-ao-cliente', 'curso', CURRENT_TIMESTAMP),
-(2, 1, 'Moradia Temporaria Cadastro Beneficio de Moradia', 'Programa governamental de moradia social', 'https://www.gov.br/mds/pt-br/acoes-e-programas/auxilio-moradia', 'moradia', CURRENT_TIMESTAMP),
 (3, 2, 'Curso de Informatica Basica Fundacao Bradesco', 'Curso gratuito com certificado', 'https://www.ev.org.br/cursos/informatica-basica', 'curso', CURRENT_TIMESTAMP),
 (4, 2, 'Vagas de Jovem Aprendiz CIEE', 'Vagas disponiveis para jovens egressos', 'https://portal.ciee.org.br/estudantes/', 'emprego', CURRENT_TIMESTAMP),
 (5, 3, 'Acolhimento e Assistencia Social GOV.BR', 'Rede publica de assistencia social', 'https://www.gov.br/mds/pt-br/acoes-e-programas/assistencia-social', 'acolhimento', CURRENT_TIMESTAMP),

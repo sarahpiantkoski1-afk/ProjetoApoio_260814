@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Buscar">
+  <circle cx="28" cy="28" r="16" fill="none" stroke="#4a2ea0" stroke-width="5"/>
+  <path d="M39 39L52 52" fill="none" stroke="#4a2ea0" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="28" cy="28" r="8" fill="#4a2ea0" opacity="0.12"/>
+</svg>

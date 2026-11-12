@@ -42,7 +42,8 @@ function enviarEmail(
     string $assunto,
     string $html,
     string $texto,
-    ?array $responderPara = null
+    ?array $responderPara = null,
+    int $timeout = 30
 ): void {
     $diretorioPHPMailer = __DIR__ . '/../vendor/phpmailer/src';
     $classesPHPMailer = [
@@ -71,6 +72,8 @@ function enviarEmail(
 
     try {
         $mailer->isSMTP();
+        $mailer->Timeout = $timeout;
+        $mailer->Timelimit = $timeout;
         $mailer->Host = $configuracao['host'];
         $mailer->Port = $configuracao['port'];
         $mailer->SMTPAuth = true;

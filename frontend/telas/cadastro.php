@@ -12,6 +12,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php renderizarFavicon(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
@@ -20,14 +21,26 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
 </head>
 <body>
     <?php renderizarCabecalho('cadastro'); ?>
-    <main>
-        <h2>Quem você é?</h2>
-        <section class="escolha">
-            <article class="option">
-                <p><a href="login/cadastro_egressos.php">Jovem Egresso</a></p>
+    <main class="login-selecao-main">
+        <h2 class="titulo-tela">Como você deseja se cadastrar?</h2>
+
+        <section class="login-opcoes" aria-label="Selecione o tipo de cadastro">
+            <article class="login-card">
+                <div class="login-card-icone" aria-hidden="true">
+                    <img src="../imagens/egresso.png" alt="" class="icone-login">
+                </div>
+                <h3>Jovem Egresso</h3>
+                <p>Crie sua conta para acessar conte&uacute;dos, oportunidades e muito mais.</p>
+                <a class="login-card-botao" href="login/cadastro_egressos.php">Cadastrar</a>
             </article>
-            <article class="option">
-                <p><a href="login/cadastro_ongs.php">Instituição Social</a></p>
+
+            <article class="login-card">
+                <div class="login-card-icone" aria-hidden="true">
+                    <img src="../imagens/grupo.png" alt="" class="icone-login">
+                </div>
+                <h3>Institui&ccedil;&atilde;o Social</h3>
+                <p>Crie sua conta para divulgar oportunidades e gerenciar publica&ccedil;&otilde;es.</p>
+                <a class="login-card-botao" href="login/cadastro_ongs.php">Cadastrar</a>
             </article>
         </section>
     </main>

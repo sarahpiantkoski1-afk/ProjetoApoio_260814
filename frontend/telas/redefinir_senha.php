@@ -108,6 +108,7 @@ if (!$tokenValido || (!$registroToken && !$senhaAlterada && $mensagemErro === ''
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php renderizarFavicon(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redefinir Senha - Apoio+</title>
@@ -118,7 +119,7 @@ if (!$tokenValido || (!$registroToken && !$senhaAlterada && $mensagemErro === ''
 
     <main class="recuperar-senha-main">
         <section class="recuperar-senha-card" aria-labelledby="redefinir-senha-titulo">
-            <h2 id="redefinir-senha-titulo">Crie uma nova senha</h2>
+            <h2 id="redefinir-senha-titulo" class="titulo-tela">Crie uma nova senha</h2>
 
             <?php if ($senhaAlterada) { ?>
                 <div class="form-feedback form-feedback-sucesso" role="status">

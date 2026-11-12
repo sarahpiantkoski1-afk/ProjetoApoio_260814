@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalnia:wght@100..700&family=Outfit:wght@100..900&display=swap');
 
 * {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.titulo-tela {
+    font-family: 'Fredoka', serif;
 }
 
 body {
@@ -13,6 +17,7 @@ body {
     background-image: url('../imagens/fundopessoas.png');
     background-size: cover;
     color: #333;
+    grid-auto-flow: column;
 }
 
 header {
@@ -127,7 +132,7 @@ picture.infos-contact a{
     padding: 44px 52px;
     border: 1px solid #f2dfa6;
     border-radius: 28px;
-    background: #fff0f2;
+    background-color: #f8f1de;
     box-shadow: 0 24px 80px rgba(0,0,0,0.28);
 }
 
@@ -159,7 +164,7 @@ picture.infos-contact a{
     border: 0;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.52);
-    color: #b97982;
+    color: #351378;
     font-size: 34px;
     line-height: 1;
     cursor: pointer;
@@ -186,7 +191,7 @@ picture.infos-contact a{
 .formulario-modal-contato textarea {
     width: 100%;
     padding: 14px 16px;
-    border: 1px solid #e8a9b0;
+    border: 1px solid #351378;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.78);
     color: #1b0622;
@@ -197,8 +202,8 @@ picture.infos-contact a{
 
 .formulario-modal-contato input:focus,
 .formulario-modal-contato textarea:focus {
-    border-color: #6a3dd1;
-    box-shadow: 0 0 0 3px rgba(177, 132, 255, 0.22);
+    border-color: #4a2ea0;
+    box-shadow: 0 0 0 3px rgba(74, 46, 160, 0.22);
 }
 
 .formulario-modal-contato textarea {
@@ -418,6 +423,19 @@ body.modal-contato-aberto {
     stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
+}
+.icone-login img{
+        
+    width: 24px !important;
+    height: 24px !important;
+    object-fit: contain !important;
+}
+
+.login-card-icone img {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: contain !important;
+    display: block !important;
 }
 
 .login-card h3 {
@@ -645,6 +663,18 @@ main h2 {
     color: #351378;
 }
 
+#oportunidades > h2 {
+    width: min(calc(100% - 40px), 1288px);
+    margin: 20px auto 25px;
+}
+.intro-postagens {
+    text-align: left;
+}
+#posts > p {
+    
+    padding: 0 28px;
+    text-align: left;
+}
 .educativo-main {
     padding-left: 28px;
     padding-right: 28px;
@@ -662,6 +692,8 @@ main h2 {
     font-weight: 700;
     line-height: 1.2;
 }
+
+
 
 .educativo-card[hidden],
 .painel-filtro[hidden],
@@ -696,6 +728,13 @@ main h2 {
     box-shadow: 0 8px 22px rgba(0,0,0,0.08);
     transition: .2s ease;
 }
+.botao-filtro img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: auto;
+    object-fit: contain;
+}
 
 .botao-filtro:hover,
 .botao-filtro[aria-expanded="true"] {
@@ -703,6 +742,11 @@ main h2 {
     border-color: #4a2ea0;
     color: #f2dfa6;
     transform: translateY(-2px);
+}
+
+.botao-filtro:hover img,
+.botao-filtro[aria-expanded="true"] img {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(32%) saturate(662%) hue-rotate(350deg) brightness(101%) contrast(90%);
 }
 
 .painel-filtro {
@@ -776,6 +820,11 @@ main h2 {
     box-shadow: 0 10px 22px rgba(0,0,0,0.11);
 }
 
+.educativo-card.foi-visitado {
+    background-color: #fff7d6;
+    border-color: #f2dfa6;
+}
+
 .educativo-card img {
     display: block;
     width: 100%;
@@ -837,13 +886,55 @@ footer p {color: black;}
 footer p a {text-decoration: none; color: black;}
 
 @media (max-width: 768px) {
+    body {
+        position: relative;
+        isolation: isolate;
+        overflow-x: hidden;
+        background: #fff8f3;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-color: #fff8f3;
+        background-image:
+            radial-gradient(circle at 12% 20%, rgba(223, 177, 255, .32), transparent 38%),
+            radial-gradient(circle at 88% 62%, rgba(255, 230, 198, .45), transparent 42%);
+        background-position: center, center;
+        background-size: auto, auto;
+        background-repeat: no-repeat;
+        pointer-events: none;
+    }
+
     header {
         justify-content: space-between;
-        padding: 14px 18px;
+        min-height: 76px;
+        padding: 10px 16px;
     }
 
     main {
         padding-top: 95px;
+    }
+
+    #oportunidades > h2 {
+        width: min(calc(100% - 24px), 240px);
+        margin: 20px auto 25px;
+    }
+
+    .educativo-main {
+        padding: 82px 18px 36px;
+    }
+
+    .educativo-container h1 {
+        margin-top: 18px;
+        font-size: clamp(28px, 8vw, 36px);
+    }
+
+    .educativo-container > p {
+        font-size: 17px;
+        line-height: 1.5;
     }
 
     .login-selecao-main {
@@ -886,13 +977,13 @@ footer p a {text-decoration: none; color: black;}
 
     #logo-img {
         height: 52px !important;
-        width: 145px !important;
+        width: 132px !important;
         flex-shrink: 0;
     }
 
     #logo-img .logo-header {
-        height: 135% !important;
-        transform: scale(1.35) !important;
+        height: 130% !important;
+        transform: scale(1.25) !important;
     }
 
     .menu-toggle {
@@ -946,7 +1037,9 @@ footer p a {text-decoration: none; color: black;}
         left: 0;
         right: 0;
         width: 100%;
-        padding: 12px 18px 18px;
+        max-height: calc(100vh - 76px);
+        overflow-y: auto;
+        padding: 10px 16px 18px;
         background: white;
         box-shadow: 0 12px 24px rgba(0,0,0,0.08);
     }
@@ -968,6 +1061,7 @@ footer p a {text-decoration: none; color: black;}
         width: 100%;
         padding: 12px 14px;
         border-radius: 10px;
+        font-size: 16px;
     }
 
     #options-header ul li a:hover {
@@ -979,31 +1073,31 @@ footer p a {text-decoration: none; color: black;}
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    height: 60px !important;   /* Deixa a barra branca em um tamanho padrão e elegante */
-    width: 180px !important;  /* Limita o espaço para não empurrar o menu */
+    height: 60px !important;   
+    width: 180px !important;  
     overflow: hidden !important;
 }
 
 #logo-img .logo-header {
     display: block !important;
-    height: 140% !important;   /* Ultrapassa os 100% para estourar a borda transparente */
+    height: 140% !important;  
     width: auto !important;
-    transform: scale(1.5) !important; /* Dá um zoom manual de 50% diretamente no desenho da logo */
+    transform: scale(1.5) !important;
     object-fit: contain !important;
 }
 
 @media (max-width: 768px) {
     #logo-img {
         height: 52px !important;
-        width: 145px !important;
+        width: 132px !important;
     }
 
     #logo-img .logo-header {
-        height: 135% !important;
-        transform: scale(1.35) !important;
+        height: 130% !important;
+        transform: scale(1.25) !important;
     }
 }
-/* Força o corpo da página a ocupar no mínimo 100% da altura da tela */
+
 body {
     display: flex !important;
     flex-direction: column !important;
@@ -1011,12 +1105,11 @@ body {
     margin: 0 !important;
 }
 
-/* O conteúdo principal cresce para preencher o espaço vazio, empurrando o footer */
 main, .main-container {
     flex: 1 !important;
 }
 
-/* Garante que o rodapé fique fixado na base caso a página seja curta */
+
 footer {
     margin-top: auto !important;
 }
@@ -1044,7 +1137,6 @@ footer {
     }
 }
 
-/* Rede regional de ONGs */
 .ongs-main {
     position: relative;
     padding: 150px 28px 70px;
@@ -1174,7 +1266,7 @@ footer {
 .servico-card-toggle {
     margin-top: 18px;
     padding: 9px 14px;
-    border: 1px solid #d8c8f2;
+    border: 1px solid #7d54c1;
     border-radius: 999px;
     background: #f4effc;
     color: #4a2ea0;
@@ -1184,18 +1276,43 @@ footer {
 }
 .servico-card-toggle:hover,
 .servico-card-toggle:focus-visible { border-color: #6a3dd1; background: #6a3dd1; color: #fff; outline: none; }
-.servicos-voltar { width: max-content; margin: 28px auto 0; }
+.servicos-topo {
+    display: flex;
+    justify-content: flex-start;
+    position: absolute;
+    top: 150px;
+    left: 28px;
+    width: auto;
+    margin: 0;
+    z-index: 2;
+}
+.servicos-voltar { width: max-content; margin: 0; }
 
 @media (max-width: 980px) {
     .rede-regional { grid-template-columns: 1fr; }
     .painel-municipio { width: min(100%, 600px); margin: auto; }
+    .servicos-topo {
+        position: static;
+        width: 100%;
+        margin: 0 0 18px;
+    }
 }
 @media (max-width: 620px) {
     .ongs-main { padding: 120px 14px 45px; }
+    .servicos-topo { margin-bottom: 16px; }
     .ongs-apresentacao p { font-size: 15px; }
     .rede-regional { padding: 12px; border-radius: 22px; }
-    .mapa-cidades { min-height: 390px; padding-inline: 0; }
-    .mapa-svg { max-height: 390px; }
+    .mapa-cidades {
+        min-height: 430px;
+        padding: 0 0 20px;
+        overflow: hidden;
+    }
+    .mapa-svg {
+        width: 132%;
+        max-width: none;
+        max-height: 430px;
+        flex: 0 0 132%;
+    }
     .cidade-label { font-size: 18px; }
     .cidade-label-sao-jose { font-size: 15px; }
     .painel-municipio { padding: 24px 18px; }

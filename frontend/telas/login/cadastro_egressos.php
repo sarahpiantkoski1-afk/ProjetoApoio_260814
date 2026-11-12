@@ -13,6 +13,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php renderizarFavicon(1); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Jovem Egresso</title>
@@ -24,12 +25,12 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
     <main>
         <section class="form-container">
             <article class="form-up">
-                <h2>Cadastre-se</h2>
+                <h2 class="titulo-tela">Cadastre-se</h2>
             </article>
             <article class="form-down">
 
                 
-                <form action="../../../backend/funcionalidades/login/cadastra_egressos.php" method="post">
+                <form action="../../../backend/funcionalidades/login/cadastra_egressos.php" method="post" autocomplete="off">
                     
                     <label for="nome">Nome</label>
                     <input
@@ -39,6 +40,7 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
                         minlength="3"
                         maxlength="100"
                         placeholder="Nome completo"
+                        autocomplete="name"
                         required
                     >
 
@@ -49,30 +51,48 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
                         id="email" 
                         maxlength="100"
                         placeholder="seu@email.com" 
+                        autocomplete="email"
                         required
                     >
 
                     <label for="senha">Senha</label>
-                    <input 
-                        type="password" 
-                        name="senha" 
-                        id="senha" 
-                        minlength="8"
-                        maxlength="255"
-                        placeholder="******" 
-                        required
-                    >
+                    <div class="campo-senha">
+                        <input
+                            type="password"
+                            name="senha"
+                            id="senha"
+                            minlength="8"
+                            maxlength="255"
+                            placeholder="******"
+                            autocomplete="new-password"
+                            required
+                        >
+                        <button class="alternar-senha" type="button" data-password-target="senha" aria-label="Mostrar senha" aria-pressed="false" title="Mostrar senha">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path><circle cx="12" cy="12" r="2.5"></circle></svg>
+                        </button>
+                    </div>
 
                     <label for="confirmar_senha">Confirme a senha</label>
-                    <input
-                        type="password"
-                        name="confirmar_senha"
-                        id="confirmar_senha"
-                        minlength="8"
-                        maxlength="255"
-                        placeholder="******"
-                        required
-                    >
+                    <div class="campo-senha">
+                        <input
+                            type="password"
+                            name="confirmar_senha"
+                            id="confirmar_senha"
+                            minlength="8"
+                            maxlength="255"
+                            placeholder="******"
+                            autocomplete="new-password"
+                            required
+                        >
+                        <button class="alternar-senha" type="button" data-password-target="confirmar_senha" aria-label="Mostrar senha" aria-pressed="false" title="Mostrar senha">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path><circle cx="12" cy="12" r="2.5"></circle></svg>
+                        </button>
+                    </div>
+
+                    <label class="preferencia-notificacoes" for="receber_notificacoes">
+                        <input type="checkbox" name="receber_notificacoes" id="receber_notificacoes" value="1">
+                        <span>Quero receber por e-mail notificações de novas publicações das instituições.</span>
+                    </label>
 
                     <input type="submit" value="Cadastrar" class="botao-executar">
                 </form>
@@ -80,5 +100,6 @@ if (isset($_SESSION['usuario'] )||( isset($_SESSION['ong']))) {
         </section>
     </main>
     <?php renderizarRodape(1); ?>
+    <script src="../password-toggle.js?v=<?= APOIO_ASSET_VERSION ?>"></script>
 </body>
 </html>

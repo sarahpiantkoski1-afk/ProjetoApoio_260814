@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <g fill="none" stroke="#4a2ea0" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Top slider -->
+    <line x1="70" y1="145" x2="442" y2="145"/>
+    <circle cx="180" cy="145" r="42" fill="#fff"/>
+
+    <!-- Middle slider -->
+    <line x1="70" y1="256" x2="442" y2="256"/>
+    <circle cx="345" cy="256" r="42" fill="#fff"/>
+
+    <!-- Bottom slider -->
+    <line x1="70" y1="367" x2="442" y2="367"/>
+    <circle cx="240" cy="367" r="42" fill="#fff"/>
+  </g>
+</svg>

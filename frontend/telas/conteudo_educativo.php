@@ -1,6 +1,31 @@
 <?php
 session_start();
 require_once(__DIR__ . '/../componentes/layout.php');
+require_once(__DIR__ . '/../../backend/funcionalidades/config.php');
+
+$conteudosVistos = [];
+$videosVistos = [];
+$historicoAtivo = false;
+$consultaVideos = $mysqli->query('SELECT id, titulo, descricao, youtube_url, youtube_id, nichos, criado_em FROM conteudos_educativos ORDER BY criado_em DESC');
+$videosEducativos = $consultaVideos->fetch_all(MYSQLI_ASSOC);
+if (!empty($_SESSION['usuario'])) {
+    $statusHistorico = $mysqli->prepare('SELECT historico_navegacao_ativo FROM egressos WHERE email = ?');
+    $statusHistorico->bind_param('s', $_SESSION['usuario']);
+    $statusHistorico->execute();
+    $historicoAtivo = (bool) ($statusHistorico->get_result()->fetch_assoc()['historico_navegacao_ativo'] ?? false);
+}
+if ($historicoAtivo) {
+    $consultaHistorico = $mysqli->prepare("SELECT tipo, item_id FROM historico_navegacao WHERE egresso_id = (SELECT id FROM egressos WHERE email = ?) AND tipo IN ('conteudo', 'video')");
+    $consultaHistorico->bind_param('s', $_SESSION['usuario']);
+    $consultaHistorico->execute();
+    foreach ($consultaHistorico->get_result() as $registro) {
+        if ($registro['tipo'] === 'video') {
+            $videosVistos[(int) $registro['item_id']] = true;
+        } else {
+            $conteudosVistos[(int) $registro['item_id']] = true;
+        }
+    }
+}
 
 $conteudos = [
     [
@@ -14,12 +39,6 @@ $conteudos = [
         'link' => 'https://youtu.be/DE8U1LpMffY?si=Lvbu42YTjlMm-jNa',
         'thumb' => 'https://img.youtube.com/vi/DE8U1LpMffY/hqdefault.jpg',
         'categorias' => 'acolhimento,dicas',
-    ],
-    [
-        'titulo' => 'Desafios, direitos e apoio social',
-        'link' => 'https://youtu.be/YzDqQwZws-w?si=G8066V5qiW-ZbDE3',
-        'thumb' => 'https://img.youtube.com/vi/YzDqQwZws-w/hqdefault.jpg',
-        'categorias' => 'direitos,acolhimento',
     ],
     [
         'titulo' => 'Autonomia e juventude',
@@ -64,12 +83,6 @@ $conteudos = [
         'categorias' => 'autocuidado,dicas',
     ],
     [
-        'titulo' => 'Direitos humanos e prote&ccedil;&atilde;o a jovens em acolhimento',
-        'link' => 'https://youtu.be/YBD9lxmE30g?si=SEvK0Hqz5LuGpcnq',
-        'thumb' => 'https://img.youtube.com/vi/YBD9lxmE30g/hqdefault.jpg',
-        'categorias' => 'direitos,acolhimento',
-    ],
-    [
         'titulo' => 'Transi&ccedil;&atilde;o da vida institucional para a vida adulta',
         'link' => 'https://youtu.be/94QP7YsHwto?si=15raaUf9nosRumZ3/',
         'thumb' => 'https://img.youtube.com/vi/94QP7YsHwto/hqdefault.jpg',
@@ -99,6 +112,7 @@ $conteudos = [
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php renderizarFavicon(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conteúdo Educativo - Apoio+</title>
@@ -108,11 +122,11 @@ $conteudos = [
     <?php renderizarCabecalho('conteudo'); ?>
     <main class="educativo-main">
         <section class="educativo-container">
-            <h1>Conte&uacute;dos Educativos</h1>
-
+            <h1 class="titulo-tela">Conteúdos Educativos</h1>
+        <p>Encontre aqui conteúdos educativos que podem te ajudar a lidar com os desafios da vida adulta, especialmente para jovens que estão saindo do acolhimento institucional. Explore vídeos, dicas e orientações sobre direitos, autoestima e autocuidado.</p>
             <div class="filtro-postagens educativo-ferramentas">
                 <button class="botao-filtro" type="button" aria-label="Abrir filtros de categorias" aria-expanded="false">
-                    &#128269;
+                    <img src="../imagens/icone_filtro%20(1).svg" alt="Filtrar postagens">
                 </button>
                 <div class="painel-filtro" hidden>
                     <button type="button" class="filtro-chip" data-categoria="direitos">Direitos</button>
@@ -124,8 +138,8 @@ $conteudos = [
             </div>
 
             <div class="educativo-grid">
-                <?php foreach ($conteudos as $conteudo) { ?>
-                    <a class="educativo-card" href="<?php echo htmlspecialchars($conteudo['link']); ?>" target="_blank" rel="noopener noreferrer" data-categorias="<?php echo htmlspecialchars($conteudo['categorias']); ?>">
+                <?php foreach ($conteudos as $indice => $conteudo) { $conteudoId = $indice + 1; $foiVisto = isset($conteudosVistos[$conteudoId]); ?>
+                    <a class="educativo-card<?php echo $foiVisto ? ' foi-visitado' : ''; ?>" href="<?php echo htmlspecialchars($conteudo['link']); ?>" target="_blank" rel="noopener noreferrer" data-categorias="<?php echo htmlspecialchars($conteudo['categorias']); ?>" data-historico-tipo="conteudo" data-historico-id="<?php echo $conteudoId; ?>"<?php echo $foiVisto ? ' aria-label="Conteúdo já acessado: ' . htmlspecialchars(strip_tags($conteudo['titulo']), ENT_QUOTES, 'UTF-8') . '"' : ''; ?>>
                         <img src="<?php echo htmlspecialchars($conteudo['thumb']); ?>" alt="Capa do video">
                         <div class="educativo-card-texto">
                             <h3><?php echo $conteudo['titulo']; ?></h3>
@@ -133,11 +147,22 @@ $conteudos = [
                         </div>
                     </a>
                 <?php } ?>
+                <?php foreach ($videosEducativos as $video) { $videoId = (int) $video['id']; $foiVisto = isset($videosVistos[$videoId]); ?>
+                    <a class="educativo-card<?php echo $foiVisto ? ' foi-visitado' : ''; ?>" href="<?php echo htmlspecialchars($video['youtube_url'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer" data-categorias="<?php echo htmlspecialchars($video['nichos'], ENT_QUOTES, 'UTF-8'); ?>" data-historico-tipo="video" data-historico-id="<?php echo $videoId; ?>">
+                        <img src="https://img.youtube.com/vi/<?php echo rawurlencode($video['youtube_id']); ?>/hqdefault.jpg" alt="Capa do vídeo">
+                        <div class="educativo-card-texto">
+                            <h3><?php echo htmlspecialchars($video['titulo'], ENT_QUOTES, 'UTF-8'); ?></h3>
+                            <p><?php echo htmlspecialchars($video['descricao'], ENT_QUOTES, 'UTF-8'); ?></p>
+                            <p>Adicionado em: <?php echo date('d/m/Y', strtotime($video['criado_em'])); ?></p>
+                        </div>
+                    </a>
+                <?php } ?>
             </div>
-            <p class="sem-resultados" hidden>Nenhum conte&uacute;do encontrado para esta categoria.</p>
+            <p class="sem-resultados" hidden>Nenhum conteúdo encontrado para esta categoria.</p>
         </section>
     </main>
     <?php renderizarRodape(); ?>
     <script src="post-filter.js"></script>
+    <?php if ($historicoAtivo) { ?><script src="historico.js?v=1"></script><?php } ?>
 </body>
 </html>

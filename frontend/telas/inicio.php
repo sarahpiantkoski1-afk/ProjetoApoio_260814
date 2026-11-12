@@ -7,6 +7,7 @@ require_once(__DIR__ . '/../componentes/layout.php');
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php renderizarFavicon(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Apoio+</title>
@@ -22,16 +23,16 @@ require_once(__DIR__ . '/../componentes/layout.php');
         <?php
         if (!isset($_SESSION['usuario']) && (!isset($_SESSION['ong']))) {
             echo '<section id="hero">';
-            echo '<h1>Apoio+   Conectando jovens egressos a oportunidades reais</h1>';
+            echo '<h1 class="titulo-tela">Apoio+   Conectando jovens egressos a oportunidades reais</h1>';
             echo '<p>Cadastre-se para receber notifica&ccedil;&otilde;es das atividades das ONGs associadas!</p>';
-            echo '<img src="../imagens/apoiomais.png" alt="logo" class="foto_comeco">';
-            echo '<a href="login/cadastro_egressos.php" class="btn-primary">Cadastre-se j&aacute;</a>';
+            echo '<img src="../imagens/apoiomais.png?v=' . APOIO_ASSET_VERSION . '" alt="logo" class="foto_comeco">';
+            echo '<a href="cadastro.php" class="btn-primary">Cadastre-se j&aacute;</a>';
             echo '</section>';
         }
         ?>
 
         <section id="oportunidades">
-            <h2>Posts Recentes</h2>
+            <h2 class="titulo-tela">Posts Recentes</h2>
 
             <?php
                 $consulta = $mysqli->prepare("SELECT * FROM postagens ORDER BY data_postagem DESC LIMIT 5");

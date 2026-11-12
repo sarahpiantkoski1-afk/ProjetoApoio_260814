@@ -13,19 +13,19 @@ if (!isset($_SESSION['ong'])) {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php renderizarFavicon(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criação de Post - Apoio+</title>
     <link rel="stylesheet" href="<?= caminhoEstilo('estilos.css') ?>">
     <link rel="stylesheet" href="<?= caminhoEstilo('forms.css') ?>">
-    <link rel="shortcut icon" href="../imagens/favicon.png" type="image/x-icon">
 </head>
 <body>
     <?php renderizarCabecalho('post_ongs'); ?>
     <main>
         <section class="form-container">
             <article class="form-up">
-                <h2>Criando um novo post</h2>
+                <h2 class="titulo-tela">Criando um novo post</h2>
             </article>
             <article class="form-down">
 
@@ -79,7 +79,7 @@ if (!isset($_SESSION['ong'])) {
                             </label>
                             <label class="categoria-chip">
                                 <input type="checkbox" name="categorias[]" value="apoio-psicologico">
-                                <span>Apoio psicol&oacute;gico</span>
+                                <span>Apoio psicológico</span>
                             </label>
                             <label class="categoria-chip">
                                 <input type="checkbox" name="categorias[]" value="emprego">
@@ -117,6 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const formData = new FormData(form);
+        const botaoPostar = form.querySelector('input[type="submit"]');
+        if (botaoPostar.disabled) return;
+        botaoPostar.disabled = true;
+        botaoPostar.value = "Publicando...";
 
         fetch("../../backend/funcionalidades/criar_post.php", { // ajuste caminho conforme seu projeto
             method: "POST",
@@ -128,10 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(data.message);
                 window.location.href = "inicio.php";
             } else {
+                botaoPostar.disabled = false;
+                botaoPostar.value = "Postar";
                 alert("Erro: " + data.message);
             }
         })
         .catch(err => {
+            botaoPostar.disabled = false;
+            botaoPostar.value = "Postar";
             console.error("Erro ao criar post:", err);
             alert("Ocorreu um erro ao criar o post. Veja o console.");
         });

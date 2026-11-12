@@ -58,6 +58,13 @@ try {
     $consulta->bind_param("issss", $ong_id, $titulo, $descricao, $link, $categoria);
 
     if ($consulta->execute()) {
+        $postId = (int) $mysqli->insert_id;
+        try {
+            require_once __DIR__ . '/notificacoes_posts.php';
+            notificarNovoPost($mysqli, $postId, (int) $ong_id, $titulo, $descricao, $link);
+        } catch (Throwable $erroNotificacao) {
+            error_log('Não foi possível notificar os egressos sobre o post ' . $postId);
+        }
         echo json_encode([
             "status" => "ok",
             "message" => "Post criado com sucesso!"

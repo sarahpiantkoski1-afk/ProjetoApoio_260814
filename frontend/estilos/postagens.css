@@ -9,13 +9,13 @@
     display: flex;
     justify-content: flex-end;
     width: min(100% - 40px, 1180px);
-    margin: 0 auto 10px;
+    margin: 12px auto 0;
     z-index: 20;
 }
 
 .botao-filtro {
-    width: 46px;
-    height: 46px;
+    width: 52px;
+    height: 52px;
     border: 1px solid #f2dfa6;
     border-radius: 50%;
     background: #f2dfa6;
@@ -25,6 +25,14 @@
     line-height: 1;
     box-shadow: 0 8px 22px rgba(0,0,0,0.08);
     transition: .2s ease;
+}
+
+.botao-filtro img {
+    display: block;
+    width: 26px;
+    height: 26px;
+    margin: auto;
+    object-fit: contain;
 }
 
 .botao-filtro:hover,
@@ -37,7 +45,7 @@
 
 .painel-filtro {
     position: absolute;
-    top: 56px;
+    top: 62px;
     right: 0;
     width: min(320px, calc(100vw - 40px));
     padding: 16px;
@@ -87,18 +95,45 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
-    gap: 25px;
-    width: 100%;
-    margin-top: 30px;
+    gap: 22px;
+    width: min(calc(100% - 40px), 1288px);
+    margin: 14px auto 0;
     padding: 10px 0;
 }
 
+.postagens-main {
+    padding-left: 28px;
+    padding-right: 28px;
+}
+
+.postagens-main #posts {
+    width: min(100%, 1180px);
+    margin: 0 auto;
+}
+
+.postagens-main #posts > h2 {
+    margin: 28px 0 10px;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.postagens-main #posts > p {
+    padding: 0;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.postagens-main .filtro-postagens,
+.postagens-main .card-post {
+    width: 100%;
+}
+
 .post {
-    width: 280px;
-    min-height: 360px;
+    width: 240px;
+    min-height: 320px;
     background: #ffffff;
     border-radius: 14px;
-    padding: 20px;
+    padding: 18px;
     border: 1px solid rgba(140, 118, 197, 0.2);
     box-shadow: 0 10px 25px rgba(0,0,0,0.06);
     display: flex;
@@ -130,8 +165,8 @@
     font-size: 15px;
     color: #333;
     line-height: 1.5;
-    min-height: 112px;
-    max-height: 112px;
+    min-height: 104px;
+    max-height: 104px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -172,6 +207,11 @@
     box-shadow: 0 4px 14px rgba(177, 132, 255, 0.28);
 }
 
+.post .ver-mais.foi-visitado {
+    background: #b184ff;
+    color: #fff;
+}
+
 .post .ver-mais:hover {
     transform: translateY(-2px);
     background-color: #b184ff;
@@ -179,9 +219,44 @@
 }
 
 @media (max-width: 500px) {
+    .postagens-main {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .postagens-main #posts > h2 {
+        margin-top: 18px;
+        font-size: clamp(28px, 8vw, 36px);
+    }
+
+    .postagens-main #posts > p {
+        font-size: 17px;
+    }
+
+    .filtro-postagens {
+        width: calc(100% - 28px);
+        margin-top: 10px;
+    }
+
+    .botao-filtro {
+        width: 48px;
+        height: 48px;
+    }
+
+    .painel-filtro {
+        top: 58px;
+        width: min(320px, calc(100vw - 28px));
+    }
+
+    .card-post {
+        width: calc(100% - 24px);
+        gap: 18px;
+        margin-top: 12px;
+    }
+
     .post {
-        width: min(95%, 280px);
-        min-height: 360px;
+        width: min(90%, 240px);
+        min-height: 320px;
     }
     .post h2 {
         font-size: 18px;

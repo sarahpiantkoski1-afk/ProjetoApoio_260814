@@ -2,19 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector("header");
     const nav = document.querySelector("#options-header");
 
-    if (!header || !nav || header.querySelector(".menu-toggle")) {
+    if (!header || !nav) {
         return;
     }
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "menu-toggle";
-    button.setAttribute("aria-label", "Abrir menu");
-    button.setAttribute("aria-expanded", "false");
-    button.setAttribute("aria-controls", "options-header");
-    button.innerHTML = "<span></span><span></span><span></span>";
-
-    header.insertBefore(button, nav);
+    const button = header.querySelector(".menu-toggle");
+    if (!button) {
+        return;
+    }
 
     const closeMenu = () => {
         header.classList.remove("menu-open");
