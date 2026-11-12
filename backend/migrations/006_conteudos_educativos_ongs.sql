@@ -14,4 +14,6 @@ CREATE TABLE IF NOT EXISTS conteudos_educativos (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE historico_navegacao
-  MODIFY tipo ENUM('conteudo', 'vaga', 'video') NOT NULL;
+  MODIFY tipo VARCHAR(8) NOT NULL,
+  ADD CONSTRAINT chk_historico_tipo
+    CHECK (tipo IN ('conteudo', 'vaga', 'video'));

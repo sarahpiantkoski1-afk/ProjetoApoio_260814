@@ -8,7 +8,7 @@ USE `apoio`;
 
 DROP TABLE IF EXISTS `egressos`;
 CREATE TABLE `egressos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL UNIQUE,
   `senha` varchar(255) NOT NULL,
@@ -19,14 +19,15 @@ CREATE TABLE `egressos` (
 
 CREATE TABLE `historico_navegacao` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `egresso_id` int(11) NOT NULL,
-  `tipo` enum('conteudo','vaga','video') NOT NULL,
-  `item_id` int(11) NOT NULL,
+  `egresso_id` int NOT NULL,
+  `tipo` varchar(8) NOT NULL,
+  `item_id` int NOT NULL,
   `visitado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_historico_egresso_item` (`egresso_id`,`tipo`,`item_id`),
   KEY `idx_historico_egresso_tipo` (`egresso_id`,`tipo`),
-  CONSTRAINT `fk_historico_egresso` FOREIGN KEY (`egresso_id`) REFERENCES `egressos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_historico_egresso` FOREIGN KEY (`egresso_id`) REFERENCES `egressos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `chk_historico_tipo` CHECK (`tipo` IN ('conteudo', 'vaga', 'video'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `egressos` (`id`, `nome`, `email`, `senha`) VALUES
@@ -38,7 +39,7 @@ INSERT INTO `egressos` (`id`, `nome`, `email`, `senha`) VALUES
 
 DROP TABLE IF EXISTS `ongs`;
 CREATE TABLE `ongs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(150) NOT NULL,
   `cnpj` varchar(18) NOT NULL UNIQUE,
   `email` varchar(150) NOT NULL UNIQUE,
@@ -47,8 +48,8 @@ CREATE TABLE `ongs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `conteudos_educativos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ong_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ong_id` int NOT NULL,
   `titulo` varchar(200) NOT NULL,
   `descricao` varchar(1200) NOT NULL,
   `youtube_url` varchar(500) NOT NULL,
@@ -85,8 +86,8 @@ CREATE TABLE `password_reset_tokens` (
 
 DROP TABLE IF EXISTS `postagens`;
 CREATE TABLE `postagens` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ong_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ong_id` int NOT NULL,
   `titulo` varchar(200) NOT NULL,
   `descricao` varchar(60) NOT NULL,
   `link` varchar(255),

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
             if (!response.ok || result.status !== 'ok') throw new Error(result.message || 'Não foi possível salvar o conteúdo.');
             alert(result.message);
-            window.location.href = 'conteudo_educativo.php';
+            window.location.assign('conteudo_educativo.php');
         } catch (error) {
             alert(error.message || 'Ocorreu um erro ao salvar. Tente novamente.');
             button.disabled = false;
