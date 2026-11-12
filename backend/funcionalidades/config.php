@@ -26,7 +26,7 @@ try {
     $mysqli->set_charset("utf8mb4");
 } catch (Exception $e) {
     error_log($e->getMessage());
-    exit('Alguma coisa estranha aconteceu...');
+    exit('Erro ao conectar ao banco de dados: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'));
 }
 
 ?>
